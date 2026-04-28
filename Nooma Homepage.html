@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nooma — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #2A1F1F;
+  --cream: #FAF4ED;
+  --red: #C9453B;
+  --muted: #6B5757;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--red);
+}
+
+/* ============================================================
+   FULLSCREEN LAYOUT
+   ============================================================ */
+.coming-soon {
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FAF4ED 0%, #F5EBDC 50%, #EDE4D4 100%);
+}
+
+/* Left side - Content */
+.content-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  padding-right: clamp(2rem, 4vw, 4rem);
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  margin-bottom: clamp(2rem, 5vh, 4rem);
+}
+
+.logo-mark {
+  width: clamp(32px, 3vw, 42px);
+  height: auto;
+}
+
+.logo-word {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--red);
+  margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  max-width: 500px;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 420px;
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+/* Form */
+.signup-form {
+  max-width: 400px;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.email-input {
+  flex: 1;
+  padding: clamp(0.85rem, 1.2vw, 1rem) 1.25rem;
+  border: 2px solid rgba(42, 31, 31, 0.1);
+  border-radius: 999px;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-family: inherit;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(201, 69, 59, 0.08);
+}
+
+.email-input::placeholder {
+  color: #A89A95;
+}
+
+.btn {
+  padding: clamp(0.85rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 2rem);
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #b33d33;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 69, 59, 0.25);
+}
+
+.form-note {
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+  color: var(--muted);
+}
+
+.footer-line {
+  margin-top: auto;
+  padding-top: clamp(2rem, 4vh, 3rem);
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+  color: var(--muted);
+}
+
+/* Right side - Character scene */
+.character-side {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Gradient orb background */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.orb-1 {
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, #FFE4A8 0%, transparent 70%);
+  top: 10%;
+  right: -10%;
+}
+
+.orb-2 {
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, #FFD6B0 0%, transparent 70%);
+  bottom: 5%;
+  left: 10%;
+}
+
+.orb-3 {
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, #E8DCB8 0%, transparent 70%);
+  top: 30%;
+  left: 5%;
+}
+
+/* Character container */
+.character-container {
+  position: relative;
+  width: clamp(320px, 50vh, 520px);
+  height: clamp(320px, 50vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-char-svg {
+  width: 85%;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(42, 31, 31, 0.1));
+}
+
+/* Sparkles */
+.spark {
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: #D8A845;
+  animation: sparkle 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.85) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(12deg); }
+}
+
+/* Floating pills decoration */
+.floating-pill {
+  position: absolute;
+  width: clamp(40px, 6vh, 60px);
+  height: clamp(20px, 3vh, 30px);
+  border-radius: 999px;
+  opacity: 0.85;
+  animation: float 6s ease-in-out infinite;
+}
+
+.pill-1 {
+  background: linear-gradient(90deg, #FFF8E8 50%, #C9453B 50%);
+  border: 2px solid #1F1610;
+  top: 15%;
+  right: 18%;
+  animation-delay: 0s;
+}
+
+.pill-2 {
+  background: linear-gradient(90deg, #FFF8E8 50%, #7E5FA8 50%);
+  border: 2px solid #1F1610;
+  bottom: 20%;
+  left: 12%;
+  animation-delay: 2s;
+  transform: rotate(-15deg);
+}
+
+.pill-3 {
+  background: linear-gradient(90deg, #FFF8E8 50%, #9BC270 50%);
+  border: 2px solid #1F1610;
+  top: 25%;
+  left: 8%;
+  animation-delay: 4s;
+  transform: rotate(20deg);
+  width: clamp(30px, 4vh, 45px);
+  height: clamp(15px, 2vh, 22px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+
+.pill-1 { --rot: 10deg; }
+.pill-2 { --rot: -15deg; }
+.pill-3 { --rot: 20deg; }
+
+/* Responsive - stack on mobile */
+@media (max-width: 900px) {
+  .coming-soon {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .content-side {
+    order: 2;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    align-items: center;
+  }
+
+  .logo {
+    margin-bottom: clamp(1rem, 3vh, 2rem);
+  }
+
+  h1 {
+    max-width: none;
+  }
+
+  .subtitle {
+    max-width: 400px;
+  }
+
+  .signup-form {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .footer-line {
+    text-align: center;
+  }
+
+  .character-side {
+    order: 1;
+    min-height: 40vh;
+  }
+
+  .character-container {
+    width: clamp(200px, 35vh, 300px);
+    height: clamp(200px, 35vh, 300px);
+  }
+
+  .floating-pill {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================================
+   CHARACTER ANIMATIONS
+   ============================================================ */
+@keyframes char-bob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+.char-bob { animation: char-bob 3.8s ease-in-out infinite; transform-origin: center; }
+
+@keyframes char-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1.5deg); }
+}
+.char-sway { animation: char-sway 5.2s ease-in-out infinite; transform-origin: center bottom; }
+
+@keyframes char-blink-open {
+  0%, 22%, 28%, 78%, 84%, 100% { opacity: 1; }
+  24%, 26%, 80%, 82% { opacity: 0; }
+}
+@keyframes char-blink-closed {
+  0%, 22%, 28%, 78%, 84%, 100% { opacity: 0; }
+  24%, 26%, 80%, 82% { opacity: 1; }
+}
+.eyes-open { animation: char-blink-open 5.5s ease-in-out infinite; }
+.eyes-closed { animation: char-blink-closed 5.5s ease-in-out infinite; opacity: 0; }
+
+@keyframes char-look {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1.5px, 0.5px); }
+  40% { transform: translate(1.5px, 0.5px); }
+  60% { transform: translate(0, 1px); }
+  80% { transform: translate(-1px, -0.5px); }
+}
+.char-pupils { animation: char-look 8s ease-in-out infinite; }
+body.eye-tracking .char-pupils { animation: none; }
+
+@keyframes char-tie-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+.char-tie { animation: char-tie-sway 4.4s ease-in-out infinite; transform-origin: 110px 152px; }
+
+@keyframes char-cheek {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+}
+.char-cheek { animation: char-cheek 4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- CHARACTER SVG DEFS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="bodyHighlight" cx="40%" cy="30%">
+      <stop offset="0%" stop-color="#FFFEF8" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#FFF8E8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFF8E8" stop-opacity="0"/>
+    </radialGradient>
+
+    <symbol id="character" viewBox="0 0 220 220">
+      <g class="char-bob">
+        <g class="char-sway">
+          <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000000" opacity="0.15"/>
+          <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158
+                   Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170
+                   Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168
+                   Q 60 178 50 170 Q 38 168 38 158 Z"
+                fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154
+                   Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165
+                   Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165
+                   Q 61 173 53 165 Q 43 164 43 154 Z"
+                fill="#FFF8E8"/>
+          <ellipse cx="110" cy="92" rx="56" ry="34" fill="url(#bodyHighlight)"/>
+          <ellipse cx="78" cy="74" rx="18" ry="11" fill="#FFFFFF" opacity="0.55" transform="rotate(-25 78 74)"/>
+          <ellipse cx="90" cy="68" rx="8" ry="5" fill="#FFFFFF" opacity="0.7" transform="rotate(-25 90 68)"/>
+          <ellipse class="char-cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+          <ellipse class="char-cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+          <circle cx="68" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+          <circle cx="74" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+          <circle cx="80" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+          <circle cx="140" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+          <circle cx="146" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+          <circle cx="152" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+          <g class="char-pupils">
+            <g class="eyes-open">
+              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="char-pupil-wrap" data-eye="left">
+                <circle cx="80" cy="100" r="5" fill="#1F1610"/>
+                <path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+              </g>
+              <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="char-pupil-wrap" data-eye="right">
+                <circle cx="140" cy="100" r="5" fill="#1F1610"/>
+                <path d="M 138 96 Q 141 94 144 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+              </g>
+            </g>
+            <g class="eyes-closed">
+              <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            </g>
+          </g>
+          <path d="M 102 138 Q 110 143 118 138" stroke="#1F1610" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+          <g class="char-tie">
+            <path d="M 103 148 L 117 148 L 115 158 L 105 158 Z" fill="#A8362E" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M 105 150 L 113 150" stroke="#FFFFFF" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+            <path d="M 105 158 L 115 158 L 120 178 L 110 188 L 100 178 Z" fill="#C9453B" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
+            <g opacity="0.45">
+              <line x1="104" y1="164" x2="116" y2="161" stroke="#1F1610" stroke-width="1"/>
+              <line x1="105" y1="170" x2="118" y2="167" stroke="#1F1610" stroke-width="1"/>
+              <line x1="107" y1="176" x2="118" y2="173" stroke="#1F1610" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </symbol>
+
+    <symbol id="logoMark" viewBox="0 0 32 32">
+      <path d="M 16 4 C 8 4, 4 10, 4 18 L 4 26 C 4 26, 7 30, 10 26 C 10 26, 13 30, 16 26 C 16 26, 19 30, 22 26 C 22 26, 25 30, 28 26 L 28 18 C 28 10, 24 4, 16 4 Z"
+            fill="#FFF8E8" stroke="#1F1610" stroke-width="1.6" stroke-linejoin="round"/>
+      <ellipse cx="11" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="21" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="9" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <ellipse cx="23" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <path d="M 14 22 Q 16 24, 18 22" stroke="#1F1610" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+
+<!-- PAGE -->
+<div class="coming-soon">
+
+  <!-- Left: Content -->
+  <div class="content-side">
+    <a href="#" class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
+      <span class="logo-word">nooma</span>
+    </a>
+
+    <p class="eyebrow">Coming Soon</p>
+    <h1>Never forget your <em>meds</em> again.</h1>
+    <p class="subtitle">
+      A gentle medication reminder with a tiny companion who lives on your phone. No guilt trips. No broken streaks. Just soft check-ins from someone who's glad you're here.
+    </p>
+
+    <p class="footer-line">© 2026 Nooma · Made with care in the UK</p>
+  </div>
+
+  <!-- Right: Character scene -->
+  <div class="character-side">
+    <!-- Background orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- Floating pills -->
+    <div class="floating-pill pill-1"></div>
+    <div class="floating-pill pill-2"></div>
+    <div class="floating-pill pill-3"></div>
+
+    <!-- Character -->
+    <div class="character-container">
+      <span class="spark" style="top: 5%; left: 15%; font-size: 24px;">✦</span>
+      <span class="spark" style="top: 20%; right: 10%; font-size: 18px; animation-delay: 1.2s;">✦</span>
+      <span class="spark" style="bottom: 25%; left: 5%; font-size: 20px; animation-delay: 2.4s;">✦</span>
+      <span class="spark" style="bottom: 15%; right: 15%; font-size: 16px; animation-delay: 0.6s;">✦</span>
+      <span class="spark" style="top: 50%; right: 0%; font-size: 14px; animation-delay: 3s;">✦</span>
+      <span class="spark" style="top: 40%; left: 0%; font-size: 22px; animation-delay: 1.8s;">✦</span>
+
+      <svg viewBox="0 0 220 220" class="hero-char-svg" aria-label="Nooma's tiny companion">
+        <use href="#character"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- EYE TRACKING -->
+<script>
+(function() {
+  document.body.classList.add('eye-tracking');
+
+  var heroChar = document.querySelector('.hero-char-svg');
+  var pupilWraps = heroChar ? heroChar.querySelectorAll('.char-pupil-wrap') : [];
+  var eyeCenters = { left: { cx: 80, cy: 100 }, right: { cx: 140, cy: 100 } };
+  var MAX_OFFSET = 4;
+
+  function updateEyes(e) {
+    if (!heroChar) return;
+    var rect = heroChar.getBoundingClientRect();
+    var ptX = ((e.clientX - rect.left) / rect.width) * 220;
+    var ptY = ((e.clientY - rect.top) / rect.height) * 220;
+
+    pupilWraps.forEach(function(wrap) {
+      var center = eyeCenters[wrap.getAttribute('data-eye')];
+      var dx = ptX - center.cx;
+      var dy = ptY - center.cy;
+      var dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist > MAX_OFFSET) {
+        dx = (dx / dist) * MAX_OFFSET;
+        dy = (dy / dist) * MAX_OFFSET;
+      }
+      wrap.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+    });
+  }
+
+  window.addEventListener('mousemove', updateEyes);
+})();
+</script>
+
+</body>
+</html>
