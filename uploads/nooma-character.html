@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nooma Character · Locked Reference</title>
+<!-- ═════════════════════════════════════════════════════════════════
+     NOOMA CHARACTER · CANONICAL REFERENCE FILE
+     Version: locked, April 2026
+     
+     PURPOSE
+     This file is the single source of truth for the Nooma character.
+     If you are designing anything that includes her, copy the SVG
+     below exactly. Do not redesign her, do not improvise proportions,
+     do not change colours.
+     
+     WHO SHE IS
+     A small cel-shaded ghost-like creature who lives inside the Nooma
+     medication reminder app. She has a red necktie. She is unnamed in
+     marketing — users name their own when they first open the app.
+     
+     COLOURS (from the Nooma palette, do not substitute)
+     - Body base (outer)     #E8DCB8
+     - Body cream (inner)    #FFF8E8
+     - Body highlight        #FFFEF8
+     - Outline (warm brown)  #1F1610  (NEVER pure black)
+     - Cheek pink            #FFB5B0
+     - Freckle pink          #D89890
+     - Tie knot dark         #A8362E
+     - Tie body (Nooma red)  #C9453B
+     - Eye dark              #1F1610
+     - Aura yellow           #FFE4A8  (used in app, not on this page)
+     
+     SCALE
+     SVG viewBox is 220×220. She fits comfortably inside this bounding
+     box with shadow. Use width/height attributes to scale her up or
+     down — she scales cleanly to any size from 32px to 800px.
+     
+     SIX-LAYER IDLE ANIMATION
+     All six animations run independently with different timings, so
+     she never appears to "sync" with herself. This is what makes her
+     feel alive.
+     
+     1. Bob          (3.8s)  vertical breathing
+     2. Sway         (5.2s)  side-to-side rotation
+     3. Blink        (5.5s)  eyes close briefly twice per cycle
+     4. Look around  (8s)    pupils drift
+     5. Tie sway     (4.4s)  tie rotates around its knot
+     6. Cheek pulse  (4s)    cheeks brighten softly
+     
+     If you remove any of these, she will look noticeably less alive.
+     If you sync them (same duration), she will look mechanical.
+     
+     COSTUME VARIANTS (not in this file — see brief)
+     - Default: red tie (this file)
+     - Plus tier: gold crown + stardust purple tie
+     - Seasonal hats / accessories: forthcoming
+     
+     DO NOT
+     - Change the body shape (the wavy bottom is iconic)
+     - Use pure black for the outline (always #1F1610)
+     - Make the eyes ovals — they're round dot eyes with white highlights
+     - Add eyebrows
+     - Make her open her mouth wide (small smile curve only)
+     - Add hair
+     - Add limbs
+     ═════════════════════════════════════════════════════════════════ -->
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #FAF4ED;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1rem;
+  color: #2A1F1F;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: #6B5757;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.character-stage {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── ANIMATION LAYER 1 · BOB (3.8s) ────────────────────── */
+/* Vertical breathing — slight scale to feel like inhalation */
+.character-bob {
+  width: 100%;
+  height: 100%;
+  animation: idleBob 3.8s ease-in-out infinite;
+}
+@keyframes idleBob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.025); }
+}
+
+/* ─── ANIMATION LAYER 2 · SWAY (5.2s) ────────────────────── */
+/* Side-to-side rotation, hinged at the bottom of the body */
+.character-sway {
+  width: 100%;
+  height: 100%;
+  animation: idleSway 5.2s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+@keyframes idleSway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.2deg); }
+  75% { transform: rotate(1.2deg); }
+}
+
+/* ─── ANIMATION LAYER 3 · BLINK (5.5s) ───────────────────── */
+/* Eyes close briefly twice per cycle, asynchronous to other layers */
+.eyes-open { animation: blinkOpen 5.5s ease-in-out infinite; }
+.eyes-closed { animation: blinkClosed 5.5s ease-in-out infinite; opacity: 0; }
+@keyframes blinkOpen {
+  0%, 22%, 28%, 78%, 84%, 100% { opacity: 1; }
+  24%, 26%, 80%, 82% { opacity: 0; }
+}
+@keyframes blinkClosed {
+  0%, 22%, 28%, 78%, 84%, 100% { opacity: 0; }
+  24%, 26%, 80%, 82% { opacity: 1; }
+}
+
+/* ─── ANIMATION LAYER 4 · LOOK AROUND (8s) ──────────────── */
+/* Pupils drift to suggest curiosity / awareness */
+.pupils { animation: lookAround 8s ease-in-out infinite; }
+@keyframes lookAround {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1.5px, 0.5px); }
+  40% { transform: translate(1.5px, 0.5px); }
+  60% { transform: translate(0, 1px); }
+  80% { transform: translate(-1px, -0.5px); }
+}
+
+/* ─── ANIMATION LAYER 5 · TIE SWAY (4.4s) ───────────────── */
+/* Tie pivots from its knot, suggesting gentle motion */
+.tie-group {
+  animation: tieSway 4.4s ease-in-out infinite;
+  transform-origin: 110px 152px;
+}
+@keyframes tieSway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1.5deg); }
+}
+
+/* ─── ANIMATION LAYER 6 · CHEEK PULSE (4s) ──────────────── */
+/* Cheek blush opacity gently breathes */
+.cheek { animation: cheekPulse 4s ease-in-out infinite; }
+@keyframes cheekPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.85; }
+}
+</style>
+</head>
+<body>
+
+<div class="meta">canonical reference · do not modify</div>
+<h1>Nooma character — default state</h1>
+
+<div class="character-stage">
+  
+  <!-- ═══════════════════════════════════════════════════════════
+       LAYER 1 (BOB) wraps LAYER 2 (SWAY) wraps the SVG.
+       The SVG itself contains the remaining 4 animation layers
+       as <g> wrappers around specific element groups.
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="character-bob">
+    <div class="character-sway">
+      
+      <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        
+        <!-- ─── DEFINITIONS ─── -->
+        <defs>
+          <!-- Soft cream highlight gradient that gives her body dimension -->
+          <radialGradient id="bodyHighlight" cx="40%" cy="30%">
+            <stop offset="0%" stop-color="#FFFEF8" stop-opacity="0.9"/>
+            <stop offset="50%" stop-color="#FFF8E8" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#FFF8E8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        
+        <!-- ─── GROUND SHADOW ─── -->
+        <!-- Sits below her body, suggests she is floating -->
+        <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000000" opacity="0.18"/>
+        
+        <!-- ─── BODY OUTLINE (DARK BASE) ─── -->
+        <!-- The outer body silhouette with the iconic wavy ghost bottom.
+             5 small bumps at the base = ghost tail. Outline is 4px brown.
+             The exact path coordinates here are LOCKED — do not redraw. -->
+        <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158 
+                 Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170 
+                 Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168 
+                 Q 60 178 50 170 Q 38 168 38 158 Z" 
+              fill="#E8DCB8" 
+              stroke="#1F1610" 
+              stroke-width="4" 
+              stroke-linejoin="round"/>
+        
+        <!-- ─── BODY CREAM LAYER ─── -->
+        <!-- Sits inside the outline, slightly inset. Creates the cel-shaded
+             "two-tone" effect that gives her depth without rendering. -->
+        <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154 
+                 Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165 
+                 Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165 
+                 Q 61 173 53 165 Q 43 164 43 154 Z" 
+              fill="#FFF8E8"/>
+        
+        <!-- ─── SOFT RADIAL HIGHLIGHT ─── -->
+        <!-- Subtle warm glow on her upper body -->
+        <ellipse cx="110" cy="92" rx="56" ry="34" fill="url(#bodyHighlight)"/>
+        
+        <!-- ─── SPECULAR HIGHLIGHTS ─── -->
+        <!-- Two diagonal white shines on upper-left, suggests dimension -->
+        <ellipse cx="78" cy="74" rx="18" ry="11" fill="#FFFFFF" 
+                 opacity="0.55" transform="rotate(-25 78 74)"/>
+        <ellipse cx="90" cy="68" rx="8" ry="5" fill="#FFFFFF" 
+                 opacity="0.7" transform="rotate(-25 90 68)"/>
+        
+        <!-- ─── CHEEK BLUSHES (animated · cheekPulse) ─── -->
+        <!-- Soft pink ovals beneath each eye. Critical to the "cute" read. -->
+        <ellipse class="cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+        <ellipse class="cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+        
+        <!-- ─── FRECKLES ─── -->
+        <!-- Three small pink dots under each eye. Soft, irregular. -->
+        <circle cx="68" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+        <circle cx="74" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+        <circle cx="80" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+        <circle cx="140" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+        <circle cx="146" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+        <circle cx="152" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+        
+        <!-- ─── EYES (animated · pupils + blink) ─── -->
+        <!-- Two states: open (default) and closed (during blink keyframes) -->
+        <g class="pupils">
+          <g class="eyes-open">
+            <!-- Left eye: white circle + dark pupil + tiny crescent shine -->
+            <circle cx="80" cy="100" r="11" fill="#FFFFFF" 
+                    stroke="#1F1610" stroke-width="2.8"/>
+            <circle cx="80" cy="100" r="5" fill="#1F1610"/>
+            <path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" 
+                  stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Right eye: same construction, mirrored position -->
+            <circle cx="140" cy="100" r="11" fill="#FFFFFF" 
+                    stroke="#1F1610" stroke-width="2.8"/>
+            <circle cx="140" cy="100" r="5" fill="#1F1610"/>
+            <path d="M 138 96 Q 141 94 144 96" stroke="#FFFFFF" 
+                  stroke-width="2" stroke-linecap="round" fill="none"/>
+          </g>
+          <g class="eyes-closed">
+            <!-- Closed crescents shown only during blink -->
+            <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" 
+                  stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" 
+                  stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </g>
+        </g>
+        
+        <!-- ─── MOUTH ─── -->
+        <!-- Small smile curve. NEVER an open oval. NEVER a full grin. -->
+        <path d="M 102 138 Q 110 143 118 138" stroke="#1F1610" 
+              stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        
+        <!-- ─── TIE (animated · tieSway) ─── -->
+        <!-- Three parts: knot trapezoid, body diamond, three subtle stripes.
+             The tie pivots from the knot. Colour is the Nooma brand red. -->
+        <g class="tie-group">
+          <!-- Knot (darker red) -->
+          <path d="M 103 148 L 117 148 L 115 158 L 105 158 Z" 
+                fill="#A8362E" stroke="#1F1610" 
+                stroke-width="2" stroke-linejoin="round"/>
+          <!-- Subtle highlight line on knot -->
+          <path d="M 105 150 L 113 150" stroke="#FFFFFF" 
+                stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+          <!-- Body of tie (Nooma red) -->
+          <path d="M 105 158 L 115 158 L 120 178 L 110 188 L 100 178 Z" 
+                fill="#C9453B" stroke="#1F1610" 
+                stroke-width="2" stroke-linejoin="round"/>
+          <!-- Three faint stripes (texture, optional but recommended) -->
+          <g opacity="0.45">
+            <line x1="104" y1="164" x2="116" y2="161" stroke="#1F1610" stroke-width="1"/>
+            <line x1="105" y1="170" x2="118" y2="167" stroke="#1F1610" stroke-width="1"/>
+            <line x1="107" y1="176" x2="118" y2="173" stroke="#1F1610" stroke-width="1"/>
+          </g>
+        </g>
+        
+      </svg>
+      
+    </div>
+  </div>
+</div>
+
+<div class="meta" style="margin-top: 2rem; max-width: 460px; text-align: center; line-height: 1.6;">
+  Six idle animations are running. Watch for ~10 seconds to see all of them — bob, sway, blink, look-around, tie sway, and cheek pulse. They are deliberately on different timings so she never appears to sync.
+</div>
+
+</body>
+</html>
