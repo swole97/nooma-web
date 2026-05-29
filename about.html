@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Nooma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #2A1F1F;
+  --cream: #FAF4ED;
+  --red: #C9453B;
+  --muted: #6B5757;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2rem);
+}
+
+/* Header */
+.header {
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 32px;
+  height: auto;
+}
+
+.logo-word {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+/* Content */
+.content h2 {
+  font-size: 1.35rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #4a3f3f;
+}
+
+.content ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+  color: #4a3f3f;
+}
+
+.content strong {
+  color: var(--ink);
+}
+
+/* Intro section */
+.intro {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.intro p {
+  margin-bottom: 1.25rem;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+  margin: 2.5rem 0;
+}
+
+/* Team section */
+.team {
+  background: rgba(42, 31, 31, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.team p {
+  margin-bottom: 0.75rem;
+}
+
+.team p:last-child {
+  margin-bottom: 0;
+}
+
+/* FAQ section */
+.faq h2 {
+  margin-top: 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(42, 31, 31, 0.08);
+  padding: 1.25rem 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.faq-item p {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.faq-item p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-item ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
+.faq-item li {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+/* Sign-off */
+.sign-off {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--muted);
+}
+
+.footer a:hover {
+  color: var(--red);
+}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logoMark" viewBox="0 0 32 32">
+      <path d="M 16 4 C 8 4, 4 10, 4 18 L 4 26 C 4 26, 7 30, 10 26 C 10 26, 13 30, 16 26 C 16 26, 19 30, 22 26 C 22 26, 25 30, 28 26 L 28 18 C 28 10, 24 4, 16 4 Z"
+            fill="#FFF8E8" stroke="#1F1610" stroke-width="1.6" stroke-linejoin="round"/>
+      <ellipse cx="11" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="21" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="9" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <ellipse cx="23" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <path d="M 14 22 Q 16 24, 18 22" stroke="#1F1610" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="header">
+    <a href="/" class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
+      <span class="logo-word">nooma</span>
+    </a>
+    <h1>About</h1>
+    <p class="tagline">a medication reminder. with a little ghost in it.</p>
+  </header>
+
+  <div class="content">
+    <div class="intro">
+      <p>we made nooma because every other med reminder felt like an alarm clock with a guilt complex. streaks. broken chains. red exclamation marks. notifications that read like a parent who's disappointed in you.</p>
+
+      <p>medication is hard enough without an app making it worse.</p>
+
+      <p>so we built one that doesn't.</p>
+
+      <p>nooma is a tiny companion who lives on your phone. you take your meds, she's happy. you miss a dose, she's still there. she goes on small adventures and brings back tiny things. that's the whole thing.</p>
+
+      <p>she doesn't shout. she doesn't shame. she's just here.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="team">
+      <h2>who's behind it</h2>
+      <p>nooma is made by a very small team in the UK.</p>
+      <p>we have ADHD. we take SSRIs. we know what it's like to set 6 alarms and still forget. we built nooma for ourselves first.</p>
+      <p>if you want to write to us, we're at <a href="mailto:hello@nooma.care">hello@nooma.care</a>. we read everything.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="faq">
+      <h2>frequently asked</h2>
+
+      <div class="faq-item">
+        <h3>what does nooma actually do?</h3>
+        <p>it reminds you to take your medication, gently. you add your meds, set when you take them, and nooma sends you a soft notification at that time. take your pill, mark it taken, and the little ghost in the app gets a bit of energy. you can send her on tiny adventures and she comes back with small things to collect.</p>
+        <p>that's it. it's not a habit tracker. it's not a wellness app. it's just a kind medication reminder with a friend in it.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>is it really free?</h3>
+        <p>yes. the medication side — reminders, adding meds, tracking history, refill notes — is free forever. you can use nooma without ever spending a penny.</p>
+        <p>nooma Plus (£5.99/month or £49/year) adds cosmetic stuff: outfits for the companion, sanctuary scenes, faster missions, no game-layer ads. it's optional. the medical features never get locked behind it.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>how is this different from medisafe, round, or my phone's reminder?</h3>
+        <p>most med reminder apps treat you like a project to manage. nooma treats you like a person to be kept company. that's the whole difference, but it's a big one.</p>
+        <p>practically:</p>
+        <ul>
+          <li>no streaks. no broken-chain notifications.</li>
+          <li>no red exclamation marks.</li>
+          <li>no "you've failed" language.</li>
+          <li>the reminders are soft and lowercase.</li>
+          <li>there's a tiny companion who's glad you're here.</li>
+        </ul>
+        <p>if you've ever deleted a habit-tracking app because it made you feel worse, nooma is built for you.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>is my data private?</h3>
+        <p>yes. medication information is encrypted. lock-screen notifications never show medication names — just a gentle prompt. we don't sell your data. we don't share it with advertisers.</p>
+        <p>full details in our <a href="/privacy.html">privacy policy</a>.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>what happens if i miss a dose?</h3>
+        <p>nothing bad. nooma doesn't have streaks to break or chains to lose. if you miss a dose, the home screen quietly shows you missed it — that's it. no red, no guilt, no panic. you can mark it as taken late if you want, or just let it go.</p>
+        <p>we built it this way on purpose. shame doesn't help you remember your meds. it just makes you avoid the app.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>can i track multiple medications?</h3>
+        <p>yes. as many as you need. nooma is designed for people with one pill <em>and</em> people with twelve. you can add complex schedules (every other day, certain days of the week, twice daily, as needed) without anything getting messy.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>what about birth control / weekday-only pills / monthly meds?</h3>
+        <p>all supported. you can set custom schedules for anything that isn't simple-daily — including pack-based pills (21 on / 7 off), weekly patches, monthly injections, and PRN ("as needed") meds.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>do you support refill reminders?</h3>
+        <p>yes. you can set a low-stock threshold for each medication and nooma will let you know when you're running low, so you can sort your prescription before you actually run out.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>is nooma for chronic illness?</h3>
+        <p>yes. nooma is built with chronic illness in mind — multiple meds, unpredictable schedules, the executive exhaustion of having to do this every single day for the rest of your life. we don't pretend this is easy. we just try to make the medication part less heavy.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>is nooma medical advice?</h3>
+        <p>no. nooma is a reminder tool. it doesn't give medical advice and shouldn't replace conversations with your doctor or pharmacist. always check with a healthcare professional about your medications.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>what platforms is nooma on?</h3>
+        <p>iPhone and Android.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>what if i hate it?</h3>
+        <p>you can delete it. no hard feelings. if there's something specific that didn't work for you, please email us — we want to know what went wrong. <a href="mailto:hello@nooma.care">hello@nooma.care</a></p>
+      </div>
+    </div>
+
+    <p class="sign-off">— made in the UK, with a lot of care</p>
+  </div>
+
+  <footer class="footer">
+    <p><a href="/">← Back to Nooma</a></p>
+    <p style="margin-top: 1rem;">© 2026 Nooma · Made with care in the UK · <a href="/privacy.html">Privacy</a> · <a href="/delete-account.html">Delete Account</a></p>
+  </footer>
+</div>
+
+</body>
+</html>
