@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Nooma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #2A1F1F;
+  --cream: #FAF4ED;
+  --red: #C9453B;
+  --muted: #6B5757;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2rem);
+}
+
+/* Header */
+.header {
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 32px;
+  height: auto;
+}
+
+.logo-word {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+/* Content */
+.content h2 {
+  font-size: 1.35rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.content h3 {
+  font-size: 1.05rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #4a3f3f;
+}
+
+.content ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+  color: #4a3f3f;
+}
+
+.content strong {
+  color: var(--ink);
+}
+
+/* Intro section */
+.intro {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.intro p {
+  margin-bottom: 1rem;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+  margin: 2.5rem 0;
+}
+
+/* Contact box */
+.contact-box {
+  background: #fff;
+  border: 2px solid rgba(42, 31, 31, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.contact-box a {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.contact-box p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* FAQ section */
+.faq-item {
+  border-bottom: 1px solid rgba(42, 31, 31, 0.08);
+  padding: 1.25rem 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.faq-item p {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.faq-item p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-item ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
+.faq-item li {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+/* Sign-off */
+.sign-off {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+  text-align: center;
+}
+
+.sign-off a {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Instrument Sans', sans-serif;
+  font-style: normal;
+}
+
+/* Footer */
+.footer {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(42, 31, 31, 0.1);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--muted);
+}
+
+.footer a:hover {
+  color: var(--red);
+}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logoMark" viewBox="0 0 32 32">
+      <path d="M 16 4 C 8 4, 4 10, 4 18 L 4 26 C 4 26, 7 30, 10 26 C 10 26, 13 30, 16 26 C 16 26, 19 30, 22 26 C 22 26, 25 30, 28 26 L 28 18 C 28 10, 24 4, 16 4 Z"
+            fill="#FFF8E8" stroke="#1F1610" stroke-width="1.6" stroke-linejoin="round"/>
+      <ellipse cx="11" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="21" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
+      <ellipse cx="9" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <ellipse cx="23" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
+      <path d="M 14 22 Q 16 24, 18 22" stroke="#1F1610" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="header">
+    <a href="/" class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
+      <span class="logo-word">nooma</span>
+    </a>
+    <h1>Support</h1>
+    <p class="tagline">we're glad you're here.</p>
+  </header>
+
+  <div class="content">
+    <div class="intro">
+      <p>if something's not working, or you just have a question, we want to help. nooma is small but we care about getting this right.</p>
+    </div>
+
+    <hr class="divider">
+
+    <h2>get in touch</h2>
+    <p>the fastest way to reach us is email:</p>
+
+    <div class="contact-box">
+      <a href="mailto:hello@nooma.care">hello@nooma.care</a>
+      <p>typical reply within 24 hours, mon–fri</p>
+    </div>
+
+    <p>if your question is urgent (a medication notification isn't firing, or the app crashed and you've lost data), say so in the subject line and we'll prioritise it.</p>
+
+    <hr class="divider">
+
+    <h2>the common ones</h2>
+
+    <div class="faq-item">
+      <h3>"my notifications aren't coming through"</h3>
+      <p>nine times out of ten, this is a phone setting, not the app. quick checklist:</p>
+      <ul>
+        <li><strong>on iPhone:</strong> Settings → Notifications → Nooma → make sure "Allow Notifications" is on, "Sounds" and "Banners" are enabled</li>
+        <li><strong>on Android:</strong> Settings → Apps → Nooma → Notifications → make sure the channel is on</li>
+        <li>if you have Focus Mode / Do Not Disturb on, add Nooma to your allowed apps</li>
+        <li>battery saver modes (especially on Android) can silently block scheduled reminders — add Nooma to your exceptions</li>
+      </ul>
+      <p>if you've checked all of this and they're still not coming through, email us with your phone model and OS version and we'll dig in.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i added a medication but it's not showing up"</h3>
+      <p>medications added to a time slot show up on the home screen at the time you set. if you added one for "evening" and it's currently morning, you'll see it later. tap the "meds" tab to see all of your medications.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i missed a dose. did i break anything?"</h3>
+      <p>no. nooma doesn't have streaks, chains, or punishments. missing a dose doesn't break a thing. you can tap the dose card in history and mark it as taken late if you want — that's it.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i want to cancel my Plus subscription"</h3>
+      <p>cancellations are handled by Apple / Google, not by us:</p>
+      <ul>
+        <li><strong>on iPhone:</strong> Settings → [your name] → Subscriptions → Nooma Plus → Cancel</li>
+        <li><strong>on Android:</strong> Play Store → Profile → Payments and subscriptions → Subscriptions → Nooma Plus → Cancel</li>
+      </ul>
+      <p>your Plus features stay active until the end of the billing period.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i want a refund"</h3>
+      <p>refunds are handled by Apple / Google directly. Apple has a refund request page at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. for Google, go to your order history in Play Store.</p>
+      <p>if there's something specific we can help with — a feature you expected that wasn't there, a bug that ruined your experience — please email us first. we're real people and we read everything.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"is my data private?"</h3>
+      <p>your medication info is stored encrypted. notifications never show medication names on your lock screen. we don't sell your data, ever.</p>
+      <p>for the full version, see our <a href="/privacy.html">privacy policy</a>.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i want to delete my account"</h3>
+      <p>we don't currently have an in-app delete button — we know, we're working on it. for now, email us at <a href="mailto:hello@nooma.care">hello@nooma.care</a> with "delete my account" in the subject and we'll wipe everything within 7 days.</p>
+      <p>you can also visit our <a href="/delete-account.html">account deletion page</a> for more details.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"i changed phones / lost my data"</h3>
+      <p>right now nooma keeps your data on your phone — which means it's private, but it doesn't transfer between devices. if you've changed phones, you'll need to re-add your medications. we're building proper backup soon.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>"is nooma actually free?"</h3>
+      <p>yes. the medical part of nooma — reminders, medications, dose tracking, history, refill reminders — is free forever. no paywalls, no limits.</p>
+      <p>nooma Plus is an optional subscription (£5.99/month or £49/year) that adds cosmetics, scene packs, and faster mission rewards. you never need to pay to use nooma for medication reminders.</p>
+    </div>
+
+    <div class="sign-off">
+      <p>something else? just email us.</p>
+      <a href="mailto:hello@nooma.care">hello@nooma.care</a>
+      <p>— the nooma team</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p><a href="/">← Back to Nooma</a></p>
+    <p style="margin-top: 1rem;">© 2026 Nooma · Made with care in the UK · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a></p>
+  </footer>
+</div>
+
+</body>
+</html>
