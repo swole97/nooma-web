@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nooma — Coming Soon</title>
+<title>Nooma — Never forget your meds again</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,217 +31,56 @@ body {
   font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-}
-
-h1 {
-  font-family: 'Fraunces', Georgia, serif;
-  font-weight: 500;
-  line-height: 1.1;
-}
-
-h1 em {
-  font-style: italic;
-  color: var(--red);
-}
-
-/* ============================================================
-   FULLSCREEN LAYOUT
-   ============================================================ */
-.coming-soon {
-  height: 100vh;
-  height: 100dvh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  overflow: hidden;
   background: linear-gradient(135deg, #FAF4ED 0%, #F5EBDC 50%, #EDE4D4 100%);
 }
 
-/* Left side - Content */
-.content-side {
+/* Main layout */
+.page {
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: clamp(2rem, 5vw, 5rem);
-  padding-right: clamp(2rem, 4vw, 4rem);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
   position: relative;
-  z-index: 2;
 }
 
+/* Logo */
 .logo {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  margin-bottom: clamp(2rem, 5vh, 4rem);
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
 }
 
 .logo-mark {
-  width: clamp(32px, 3vw, 42px);
+  width: clamp(36px, 4vw, 48px);
   height: auto;
 }
 
 .logo-word {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.02em;
 }
 
-.eyebrow {
-  font-size: clamp(0.7rem, 1vw, 0.85rem);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--red);
-  margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
-}
-
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  margin-bottom: clamp(1rem, 3vh, 2rem);
-  max-width: 500px;
-}
-
-.subtitle {
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  color: var(--muted);
-  line-height: 1.65;
-  max-width: 420px;
+/* Character */
+.character-container {
+  position: relative;
+  width: clamp(180px, 30vh, 280px);
+  height: clamp(180px, 30vh, 280px);
   margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
 }
 
-/* Form */
-.signup-form {
-  max-width: 400px;
-}
-
-.form-row {
-  display: flex;
-  gap: 0.6rem;
-  margin-bottom: 0.85rem;
-}
-
-.email-input {
-  flex: 1;
-  padding: clamp(0.85rem, 1.2vw, 1rem) 1.25rem;
-  border: 2px solid rgba(42, 31, 31, 0.1);
-  border-radius: 999px;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  font-family: inherit;
-  background: #fff;
-  color: var(--ink);
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.email-input:focus {
-  outline: none;
-  border-color: var(--red);
-  box-shadow: 0 0 0 4px rgba(201, 69, 59, 0.08);
-}
-
-.email-input::placeholder {
-  color: #A89A95;
-}
-
-.btn {
-  padding: clamp(0.85rem, 1.2vw, 1rem) clamp(1.5rem, 2vw, 2rem);
-  background: var(--red);
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.btn:hover {
-  background: #b33d33;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(201, 69, 59, 0.25);
-}
-
-.form-note {
-  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
-  color: var(--muted);
-}
-
-.footer-line {
-  margin-top: auto;
-  padding-top: clamp(2rem, 4vh, 3rem);
-  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
-  color: var(--muted);
-}
-
-.footer-line a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.footer-line a:hover {
-  color: var(--red);
-}
-
-/* Right side - Character scene */
-.character-side {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Gradient orb background */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.orb-1 {
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(circle, #FFE4A8 0%, transparent 70%);
-  top: 10%;
-  right: -10%;
-}
-
-.orb-2 {
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, #FFD6B0 0%, transparent 70%);
-  bottom: 5%;
-  left: 10%;
-}
-
-.orb-3 {
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, #E8DCB8 0%, transparent 70%);
-  top: 30%;
-  left: 5%;
-}
-
-/* Character container */
-.character-container {
-  position: relative;
-  width: clamp(320px, 50vh, 520px);
-  height: clamp(320px, 50vh, 520px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .hero-char-svg {
-  width: 85%;
+  width: 100%;
   height: auto;
-  filter: drop-shadow(0 20px 40px rgba(42, 31, 31, 0.1));
+  filter: drop-shadow(0 16px 32px rgba(42, 31, 31, 0.1));
 }
 
 /* Sparkles */
@@ -259,115 +98,94 @@ h1 {
   50% { opacity: 1; transform: scale(1.15) rotate(12deg); }
 }
 
-/* Floating pills decoration */
-.floating-pill {
+/* Typography */
+h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(0.75rem, 2vh, 1rem);
+}
+
+.tagline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: var(--muted);
+  margin-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+/* App store buttons */
+.store-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.store-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(42, 31, 31, 0.2);
+}
+
+.store-btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.store-btn .label {
+  text-align: left;
+}
+
+.store-btn .label-small {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.store-btn .label-large {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Footer */
+.footer {
   position: absolute;
-  width: clamp(40px, 6vh, 60px);
-  height: clamp(20px, 3vh, 30px);
-  border-radius: 999px;
-  opacity: 0.85;
-  animation: float 6s ease-in-out infinite;
+  bottom: clamp(1rem, 3vh, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
 }
 
-.pill-1 {
-  background: linear-gradient(90deg, #FFF8E8 50%, #C9453B 50%);
-  border: 2px solid #1F1610;
-  top: 15%;
-  right: 18%;
-  animation-delay: 0s;
+.footer a {
+  color: var(--muted);
+  text-decoration: none;
 }
 
-.pill-2 {
-  background: linear-gradient(90deg, #FFF8E8 50%, #7E5FA8 50%);
-  border: 2px solid #1F1610;
-  bottom: 20%;
-  left: 12%;
-  animation-delay: 2s;
-  transform: rotate(-15deg);
-}
-
-.pill-3 {
-  background: linear-gradient(90deg, #FFF8E8 50%, #9BC270 50%);
-  border: 2px solid #1F1610;
-  top: 25%;
-  left: 8%;
-  animation-delay: 4s;
-  transform: rotate(20deg);
-  width: clamp(30px, 4vh, 45px);
-  height: clamp(15px, 2vh, 22px);
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
-  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
-}
-
-.pill-1 { --rot: 10deg; }
-.pill-2 { --rot: -15deg; }
-.pill-3 { --rot: 20deg; }
-
-/* Responsive - stack on mobile */
-@media (max-width: 900px) {
-  .coming-soon {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-  }
-
-  .content-side {
-    order: 2;
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    text-align: center;
-    align-items: center;
-  }
-
-  .logo {
-    margin-bottom: clamp(1rem, 3vh, 2rem);
-  }
-
-  h1 {
-    max-width: none;
-  }
-
-  .subtitle {
-    max-width: 400px;
-  }
-
-  .signup-form {
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .footer-line {
-    text-align: center;
-  }
-
-  .character-side {
-    order: 1;
-    min-height: 40vh;
-  }
-
-  .character-container {
-    width: clamp(200px, 35vh, 300px);
-    height: clamp(200px, 35vh, 300px);
-  }
-
-  .floating-pill {
-    display: none;
-  }
-}
-
-@media (max-width: 500px) {
-  .form-row {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .subtitle {
-    font-size: 0.95rem;
-  }
+.footer a:hover {
+  color: var(--red);
 }
 
 /* ============================================================
@@ -419,6 +237,17 @@ body.eye-tracking .char-pupils { animation: none; }
   50% { opacity: 0.9; }
 }
 .char-cheek { animation: char-cheek 4s ease-in-out infinite; }
+
+/* Responsive */
+@media (max-height: 600px) {
+  .character-container {
+    width: 140px;
+    height: 140px;
+  }
+  h1 {
+    font-size: 1.75rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -503,52 +332,50 @@ body.eye-tracking .char-pupils { animation: none; }
 </svg>
 
 
-<!-- PAGE -->
-<div class="coming-soon">
+<div class="page">
+  <a href="/" class="logo">
+    <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
+    <span class="logo-word">nooma</span>
+  </a>
 
-  <!-- Left: Content -->
-  <div class="content-side">
-    <a href="#" class="logo">
-      <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
-      <span class="logo-word">nooma</span>
-    </a>
+  <div class="character-container">
+    <span class="spark" style="top: 0; left: 5%; font-size: 20px;">✦</span>
+    <span class="spark" style="top: 15%; right: 0; font-size: 16px; animation-delay: 1.2s;">✦</span>
+    <span class="spark" style="bottom: 20%; left: 0; font-size: 18px; animation-delay: 2.4s;">✦</span>
+    <span class="spark" style="bottom: 10%; right: 5%; font-size: 14px; animation-delay: 0.6s;">✦</span>
 
-    <p class="eyebrow">Coming Soon</p>
-    <h1>Never forget your <em>meds</em> again.</h1>
-    <p class="subtitle">
-      A gentle medication reminder with a tiny companion who lives on your phone. No guilt trips. No broken streaks. Just soft check-ins from someone who's glad you're here.
-    </p>
-
-    <p class="footer-line">© 2026 Nooma · Made with care in the UK · <a href="/about.html">About</a> · <a href="/support.html">Support</a> · <a href="/privacy.html">Privacy</a></p>
+    <svg viewBox="0 0 220 220" class="hero-char-svg" aria-label="Nooma's tiny companion">
+      <use href="#character"/>
+    </svg>
   </div>
 
-  <!-- Right: Character scene -->
-  <div class="character-side">
-    <!-- Background orbs -->
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
+  <h1>never forget your meds again.</h1>
+  <p class="tagline">a little companion who lives in your phone.</p>
 
-    <!-- Floating pills -->
-    <div class="floating-pill pill-1"></div>
-    <div class="floating-pill pill-2"></div>
-    <div class="floating-pill pill-3"></div>
-
-    <!-- Character -->
-    <div class="character-container">
-      <span class="spark" style="top: 5%; left: 15%; font-size: 24px;">✦</span>
-      <span class="spark" style="top: 20%; right: 10%; font-size: 18px; animation-delay: 1.2s;">✦</span>
-      <span class="spark" style="bottom: 25%; left: 5%; font-size: 20px; animation-delay: 2.4s;">✦</span>
-      <span class="spark" style="bottom: 15%; right: 15%; font-size: 16px; animation-delay: 0.6s;">✦</span>
-      <span class="spark" style="top: 50%; right: 0%; font-size: 14px; animation-delay: 3s;">✦</span>
-      <span class="spark" style="top: 40%; left: 0%; font-size: 22px; animation-delay: 1.8s;">✦</span>
-
-      <svg viewBox="0 0 220 220" class="hero-char-svg" aria-label="Nooma's tiny companion">
-        <use href="#character"/>
+  <div class="store-buttons">
+    <a href="#" class="store-btn" aria-label="Download on the App Store">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
       </svg>
-    </div>
+      <span class="label">
+        <span class="label-small">Download on the</span>
+        <span class="label-large">App Store</span>
+      </span>
+    </a>
+    <a href="#" class="store-btn" aria-label="Get it on Google Play">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.69.59 1.19s-.22.9-.57 1.18l-2.29 1.32-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/>
+      </svg>
+      <span class="label">
+        <span class="label-small">Get it on</span>
+        <span class="label-large">Google Play</span>
+      </span>
+    </a>
   </div>
 
+  <footer class="footer">
+    © 2026 Nooma · <a href="/about.html">About</a> · <a href="/support.html">Support</a> · <a href="/privacy.html">Privacy</a>
+  </footer>
 </div>
 
 
