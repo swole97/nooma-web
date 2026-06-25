@@ -165,61 +165,84 @@ h1 {
       <span class="logo-word">nooma</span>
     </a>
     <h1>Privacy Policy</h1>
-    <p class="last-updated">Last updated: April 2026</p>
+    <p class="last-updated">Last updated: June 2026</p>
   </header>
 
   <div class="content">
-    <p>At Nooma, we believe your health data is yours alone. This policy explains what we collect, why, and how we protect it.</p>
+    <p>Nooma is a medication-reminder app operated by <strong>Simonas Kralikas</strong>, an individual developer based in Lithuania (EU). This policy explains what we collect, why, how it's stored, and the rights you have. Questions: <a href="mailto:hello@nooma.care">hello@nooma.care</a>.</p>
 
     <h2>The short version</h2>
     <ul>
-      <li>Your medication data stays on your device</li>
-      <li>We never sell your data to anyone</li>
-      <li>No ads, no third-party trackers</li>
-      <li>We collect minimal anonymous analytics to improve the app</li>
+      <li>You create an account, and your data (including the medications you add) is stored securely in the cloud so it syncs and isn't lost if you change phones.</li>
+      <li>We use a small number of trusted service providers to run the app (see below).</li>
+      <li>We never sell your data.</li>
+      <li>The app shows ads to users on the free tier.</li>
+      <li>You can delete your account and data from inside the app at any time.</li>
     </ul>
 
     <h2>What we collect</h2>
-    <p><strong>Data stored on your device only:</strong></p>
+    <p><strong>Account information</strong></p>
     <ul>
-      <li>Medication names, dosages, and schedules</li>
-      <li>Reminder times and history</li>
-      <li>Your companion's name and customizations</li>
-    </ul>
-    <p>This data never leaves your phone. We cannot see it, and we don't want to.</p>
-
-    <p><strong>Anonymous analytics we may collect:</strong></p>
-    <ul>
-      <li>App opens and feature usage (e.g., "40% of users use snooze")</li>
-      <li>Crash reports to fix bugs</li>
-      <li>Device type and OS version</li>
-    </ul>
-    <p>This data is aggregated and anonymous. It's never tied to you or your medications.</p>
-
-    <h2>What we don't collect</h2>
-    <ul>
-      <li>Your name, email, or contact information (unless you contact us)</li>
-      <li>Health records or medical history</li>
-      <li>Location data</li>
-      <li>Contacts, photos, or other personal data</li>
+      <li>Your email address, and (if you sign in with Google or Apple) the basic profile info those services return. Used to create and secure your account.</li>
     </ul>
 
-    <h2>Third parties</h2>
-    <p>We do not share, sell, or provide your data to any third parties. No advertisers, no data brokers, no insurance companies. Ever.</p>
+    <p><strong>The information you enter in the app</strong></p>
+    <ul>
+      <li>Medication names, dosages and schedules, reminder times and history, and your companion's name and customizations.</li>
+      <li>Because medication information relates to your health, we treat it as sensitive ("special category") data and process it <strong>only with your consent</strong>, which you provide by entering it to use the app's reminder features.</li>
+    </ul>
+
+    <p><strong>Purchases</strong></p>
+    <ul>
+      <li>If you subscribe or buy in-app items, our payments provider processes the transaction. We receive your subscription/purchase status, not your card details.</li>
+    </ul>
+
+    <p><strong>Diagnostics &amp; device data</strong></p>
+    <ul>
+      <li>Crash reports and basic technical data (device type, OS version) to fix bugs.</li>
+      <li>An advertising identifier, used to show ads on the free tier (see "Ads").</li>
+    </ul>
+
+    <h2>Where your data is stored</h2>
+    <p>Your account and the information you enter are stored in <strong>Google Firebase (Cloud Firestore)</strong>, not solely on your device. This lets your data sync across devices and survive reinstalls. Data is encrypted in transit and at rest.</p>
+
+    <h2>Service providers we share data with</h2>
+    <p>We don't sell your data. We share the minimum necessary with providers that help us run the app:</p>
+    <ul>
+      <li><strong>Google Firebase</strong> (Google) — accounts, cloud database, and push notifications.</li>
+      <li><strong>Google Sign-In / Apple Sign-In</strong> — optional sign-in methods.</li>
+      <li><strong>RevenueCat</strong> — manages subscriptions and purchases.</li>
+      <li><strong>Google AdMob</strong> (Google) — shows ads to free-tier users.</li>
+      <li><strong>Sentry</strong> — crash and error reporting.</li>
+      <li><strong>Expo</strong> — app notifications and delivery.</li>
+    </ul>
+    <p>Some of these providers are based outside the EU (e.g. the United States); where that happens, transfers are covered by appropriate safeguards such as the EU Standard Contractual Clauses.</p>
+
+    <h2>Ads</h2>
+    <p>Free-tier users see ads provided by Google AdMob, which may use an advertising identifier to show and measure ads. Where required, we ask for your consent first, and you can reset or limit ad tracking in your device settings. Premium subscribers don't see ads.</p>
 
     <h2>Notifications</h2>
-    <p>Nooma sends local notifications to remind you about your medications. These are processed entirely on your device. The notification content never includes medication names on your lock screen — just a gentle note from your companion.</p>
+    <p>Reminders are designed for privacy: notifications <strong>never include the medication name</strong> — just a gentle nudge from your companion.</p>
 
-    <h2>Data security</h2>
-    <p>All data stored on your device uses your phone's built-in encryption. If you use a passcode, Face ID, or Touch ID, your Nooma data is protected by that same security.</p>
+    <h2>How long we keep your data</h2>
+    <p>We keep your data until you delete your account. When you delete your account, your account and the information you entered are removed. Crash logs are retained for a short period (around 90 days) and backups are purged shortly after deletion.</p>
 
-    <h2>Children's privacy</h2>
-    <p>Nooma is not directed at children under 13. We do not knowingly collect data from children.</p>
+    <h2>Deleting your account</h2>
+    <p>You can delete your account and associated data at any time from <strong>Settings → Delete account</strong> in the app.</p>
+
+    <h2>Your rights (GDPR)</h2>
+    <p>You have the right to access, correct, delete, restrict, or object to the processing of your data, to data portability, and to withdraw consent at any time. To exercise these, email <a href="mailto:hello@nooma.care">hello@nooma.care</a>. You also have the right to lodge a complaint with your supervisory authority — in Lithuania, the <strong>State Data Protection Inspectorate (Valstybinė duomenų apsaugos inspekcija)</strong>.</p>
+
+    <h2>Security</h2>
+    <p>Data is protected with encryption in transit and at rest, and access is restricted. No method of storage or transmission is 100% secure, but we take reasonable measures to protect your information.</p>
+
+    <h2>Children</h2>
+    <p>Nooma is not directed at children under 13, and we do not knowingly collect their data. If you believe a child has provided us data, contact us and we'll remove it.</p>
 
     <h2>Changes to this policy</h2>
-    <p>If we make significant changes, we'll notify you in the app before they take effect. Minor clarifications may be made without notice.</p>
+    <p>If we make significant changes, we'll notify you in the app before they take effect.</p>
 
-    <h2>Contact us</h2>
+    <h2>Contact</h2>
     <p>Questions about privacy? Email us at <a href="mailto:hello@nooma.care">hello@nooma.care</a></p>
   </div>
 
