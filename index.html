@@ -118,8 +118,6 @@ section{position:relative;padding:110px 42px;max-width:1180px;margin:0 auto}
 .pm-cheek{animation:pmCheek 4s ease-in-out infinite}
 @keyframes pmTie{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
 .pm-tie{animation:pmTie 4.4s ease-in-out infinite;transform-origin:110px 152px}
-@keyframes pmWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-12deg)}}
-.pm-arm{animation:pmWave 1.6s ease-in-out infinite;transform-origin:176px 128px}
 .pm-still *{animation:none!important}
 .pm-pupil{transition:transform .1s linear}
 
@@ -132,7 +130,7 @@ section{padding:70px 24px}
 @media(prefers-reduced-motion:reduce){
 .lp-pill-wrap,.lp-pill-spin{animation:none!important}
 .lp-rain{display:none}
-.pm-bob,.pm-sway,.pm-arm,.pm-tie{animation:none!important}
+.pm-bob,.pm-sway,.pm-tie{animation:none!important}
 }
 </style>
 </head>
@@ -318,14 +316,6 @@ section{padding:70px 24px}
           <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000" opacity="0.16"/>
           <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158 Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170 Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168 Q 60 178 50 170 Q 38 168 38 158 Z" fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
           <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154 Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165 Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165 Q 61 173 53 165 Q 43 164 43 154 Z" fill="#FFF8E8"/>
-          <g class="pm-arm">
-            <path d="M 176 128 Q 198 114 202 92" stroke="#1F1610" stroke-width="15" stroke-linecap="round" fill="none"/>
-            <path d="M 176 128 Q 198 114 202 92" stroke="#FFF8E8" stroke-width="9" stroke-linecap="round" fill="none"/>
-            <g stroke="#1F1610" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.6">
-              <path d="M 212 84 Q 218 90 219 98"/>
-              <path d="M 218 76 Q 226 84 228 94"/>
-            </g>
-          </g>
           <ellipse class="pm-cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
           <ellipse class="pm-cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
           <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
