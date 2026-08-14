@@ -41,7 +41,9 @@ h2 em{font-style:italic;color:var(--ink-soft);font-weight:400}
 
 /* pill rain */
 .lp-rain{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.lp-pill-wrap{position:absolute;top:-70px;animation:lpFall linear infinite;pointer-events:auto;cursor:pointer;transition:opacity .3s;-webkit-tap-highlight-color:transparent}
+.lp-pill-wrap{position:absolute;top:-70px;animation:lpFall linear infinite;pointer-events:auto;cursor:grab;transition:opacity .3s;-webkit-tap-highlight-color:transparent;touch-action:none}
+.lp-pill-wrap.dragging{animation:none;cursor:grabbing;filter:none!important;opacity:1!important}
+.lp-pill-wrap.dragging .lp-pill-spin{animation-play-state:paused}
 .lp-pill-wrap.popped{pointer-events:none}
 .lp-pill-wrap.popped .lp-pill-spin{animation-play-state:paused;opacity:0;transform:scale(1.6);transition:opacity .25s,transform .25s}
 @keyframes lpFall{0%{transform:translateY(-8vh) translateX(0)}25%{transform:translateY(24vh) translateX(var(--sway))}50%{transform:translateY(53vh) translateX(calc(var(--sway) * -0.6))}75%{transform:translateY(80vh) translateX(var(--sway))}100%{transform:translateY(112vh) translateX(0)}}
@@ -106,6 +108,7 @@ section{position:relative;padding:110px 42px;max-width:1180px;margin:0 auto}
 .pm-wink .exp-wink{display:initial}
 .pm-excited .exp-excited{display:initial}
 .pm-blissful .exp-blissful{display:initial}
+.pm-chomp .exp-chomp{display:initial}
 @keyframes pmBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 .pm-bob{animation:pmBob 3.8s ease-in-out infinite;transform-origin:center}
 @keyframes pmSway{0%,100%{transform:rotate(0)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
@@ -207,6 +210,16 @@ section{padding:70px 24px}
               <ellipse cx="110" cy="149" rx="7" ry="4" fill="#F08B8B"/>
             </g>
 
+            <!-- chomp: idle eyes, mouth open -->
+            <g class="exp exp-chomp">
+              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="pm-pupil"><circle cx="80" cy="100" r="5" fill="#1F1610"/><path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+              <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="pm-pupil"><circle cx="140" cy="100" r="5" fill="#1F1610"/><path d="M 138 96 Q 141 94 144 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+              <path d="M 96 132 Q 110 130 124 132 Q 122 152 110 152 Q 98 152 96 132 Z" fill="#5A2B24" stroke="#1F1610" stroke-width="2.4" stroke-linejoin="round"/>
+              <ellipse cx="110" cy="149" rx="7" ry="4" fill="#F08B8B"/>
+            </g>
+
             <!-- eyes: blissful -->
             <g class="exp exp-blissful">
               <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
@@ -237,7 +250,7 @@ section{padding:70px 24px}
       </a>
       <span class="lp-store ghost"><small>coming soon to</small>Google Play</span>
     </div>
-    <p class="lp-hint">the pills are for popping. the ghost is for poking.</p>
+    <p class="lp-hint">pop the pills. poke the ghost. or drag her a little snack.</p>
   </div>
   <div class="lp-hero-fade"></div>
 </header>
@@ -362,7 +375,17 @@ section{padding:70px 24px}
       '<line x1="6" y1="15" x2="24" y2="15" stroke="#1F1610" stroke-width="2" opacity="0.5"/>'+
       '<ellipse cx="10.5" cy="9" rx="4" ry="2.2" fill="#FFF" opacity="0.7" transform="rotate(-25 10.5 9)"/></svg>';
   }
-  function makeRain(container,count,onPop){
+  function popPill(w){
+    if(w.classList.contains('popped'))return false;
+    w.classList.add('popped');
+    var pop=document.createElement('div');
+    pop.className='lp-pop';
+    pop.textContent='✦';
+    w.appendChild(pop);
+    return true;
+  }
+  function makeRain(container,count,opts){
+    opts=opts||{};
     for(var i=0;i<count;i++){
       var back=Math.random()>0.55;
       var hue=HUES[Math.floor(Math.random()*HUES.length)];
@@ -382,18 +405,57 @@ section{padding:70px 24px}
       spin.style.animationDirection=Math.random()>0.5?'reverse':'normal';
       spin.innerHTML=pillSVG(Math.random()>0.42?'capsule':'tablet',hue[0],hue[1],scale);
       wrap.appendChild(spin);
-      wrap.addEventListener('pointerdown',function(e){
-        var w=e.currentTarget;
-        if(w.classList.contains('popped'))return;
-        w.classList.add('popped');
-        var pop=document.createElement('div');
-        pop.className='lp-pop';
-        pop.textContent='✦';
-        w.appendChild(pop);
-        if(onPop)onPop();
-      });
+      if(opts.feed){
+        enableDrag(wrap,opts);
+      }else{
+        wrap.addEventListener('pointerdown',function(e){
+          if(popPill(e.currentTarget)&&opts.onPop)opts.onPop();
+        });
+      }
       container.appendChild(wrap);
     }
+  }
+
+  /* ── drag a pill to nooma ── */
+  function enableDrag(wrap,opts){
+    wrap.addEventListener('pointerdown',function(e){
+      if(wrap.classList.contains('popped'))return;
+      e.preventDefault();
+      var rainRect=wrap.parentNode.getBoundingClientRect();
+      var wrapRect=wrap.getBoundingClientRect();
+      var grabX=e.clientX-wrapRect.left,grabY=e.clientY-wrapRect.top;
+      var startX=e.clientX,startY=e.clientY,dragging=false,near=false;
+      function onMove(ev){
+        if(!dragging&&Math.hypot(ev.clientX-startX,ev.clientY-startY)>6){
+          dragging=true;
+          wrap.classList.add('dragging');
+          wrap.style.zIndex=7;
+        }
+        if(!dragging)return;
+        wrap.style.left=(ev.clientX-rainRect.left-grabX)+'px';
+        wrap.style.top=(ev.clientY-rainRect.top-grabY)+'px';
+        var wasNear=near;
+        near=opts.overTarget(ev);
+        if(near&&!wasNear&&opts.onNear)opts.onNear();
+        if(!near&&wasNear&&opts.onLeave)opts.onLeave();
+      }
+      function onUp(ev){
+        wrap.removeEventListener('pointermove',onMove);
+        wrap.removeEventListener('pointerup',onUp);
+        wrap.removeEventListener('pointercancel',onUp);
+        if(!dragging){
+          if(popPill(wrap)&&opts.onPop)opts.onPop();
+          return;
+        }
+        popPill(wrap);
+        if(opts.overTarget(ev)){if(opts.onEat)opts.onEat();}
+        else if(near&&opts.onLeave)opts.onLeave();
+      }
+      try{wrap.setPointerCapture(e.pointerId);}catch(err){}
+      wrap.addEventListener('pointermove',onMove);
+      wrap.addEventListener('pointerup',onUp);
+      wrap.addEventListener('pointercancel',onUp);
+    });
   }
 
   /* ── mascot ── */
@@ -437,8 +499,26 @@ section{padding:70px 24px}
   var speechTimer=null,bubbleEl=null;
 
   function setBehavior(b){
-    pm.classList.remove('pm-idle','pm-wink','pm-excited','pm-blissful');
+    pm.classList.remove('pm-idle','pm-wink','pm-excited','pm-blissful','pm-chomp');
     pm.classList.add('pm-'+b);
+  }
+
+  /* ── chomp (mouth open/close) ── */
+  var chompTimer=null;
+  function chompOpen(){
+    if(speaking)return;
+    clearTimeout(chompTimer);
+    setBehavior('chomp');
+  }
+  function chompClose(){
+    if(speaking)return;
+    setBehavior('idle');
+  }
+  function chomp(){
+    chompOpen();
+    boing();
+    clearTimeout(chompTimer);
+    chompTimer=setTimeout(chompClose,380);
   }
   function talk(){
     var line=LINES[lineIdx%LINES.length];
@@ -462,8 +542,23 @@ section{padding:70px 24px}
   mascot.addEventListener('pointerdown',talk);
   mascot.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();talk();}});
 
-  makeRain(document.getElementById('heroRain'),18,boing);
-  makeRain(document.getElementById('finalRain'),10,null);
+  function overMascot(ev){
+    var r=mascot.getBoundingClientRect(),pad=30;
+    return ev.clientX>r.left-pad&&ev.clientX<r.right+pad&&ev.clientY>r.top-pad&&ev.clientY<r.bottom+pad;
+  }
+  makeRain(document.getElementById('heroRain'),18,{
+    feed:true,
+    overTarget:overMascot,
+    onPop:chomp,
+    onNear:chompOpen,
+    onLeave:chompClose,
+    onEat:function(){
+      boing();
+      clearTimeout(chompTimer);
+      chompTimer=setTimeout(chompClose,320);
+    }
+  });
+  makeRain(document.getElementById('finalRain'),10,{});
 
   /* ── scroll reveal ── */
   var io=new IntersectionObserver(function(es){
