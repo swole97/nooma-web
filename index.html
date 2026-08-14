@@ -3,490 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nooma — Never forget your meds again</title>
+<title>nooma — a little friend for your meds</title>
+<meta name="description" content="a gentle medication reminder with a tiny ghost companion. soft nudges, no streaks, no shame — free on iPhone.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink: #2A1F1F;
-  --cream: #FAF4ED;
-  --red: #C9453B;
-  --muted: #6B5757;
-}
+:root{--ink:#1F1610;--ink-soft:#6B5757;--paper:#FAF1E2;--paper-warm:#FBF1DA;--accent:#C9453B;--sage:#7FAA52;--honey:#E8C672;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0}
+h2 em{font-style:italic;color:var(--ink-soft);font-weight:400}
+.lp-kicker{font-size:11.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* hero */
+.lp-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(180deg,#FBF1DA 0%,var(--paper) 100%)}
+.lp-nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:26px 42px}
+.lp-wordmark{font-family:var(--serif);font-weight:500;font-size:30px;letter-spacing:-0.5px}
+.lp-wordmark i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);margin-left:3px}
+.lp-navbtn{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:8px 20px;background:rgba(255,255,255,0.6);transition:all .15s}
+.lp-navbtn:hover{background:var(--ink);color:#FFF8E8}
+.lp-hero-inner{position:relative;z-index:4;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px 60px;pointer-events:none}
+.lp-hero-inner .lp-mascot,.lp-hero-inner .lp-stores a,.lp-hero-inner .lp-stores span{pointer-events:auto}
+.lp-hero h1{font-size:clamp(44px,7vw,84px);line-height:1.02;letter-spacing:-1.5px;margin-top:18px;text-wrap:balance}
+.lp-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,22px);color:var(--ink-soft);margin:16px 0 30px}
+.lp-hint{font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(31,22,16,0.4);margin-top:26px}
+.lp-mascot{position:relative;transition:transform .2s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lp-mascot.boing{animation:lpBoing .55s ease}
+@keyframes lpBoing{0%{transform:scale(1)}30%{transform:scale(1.09,0.92)}60%{transform:scale(0.96,1.05)}100%{transform:scale(1)}}
+.lp-bubble{position:absolute;bottom:calc(100% - 26px);left:78%;white-space:nowrap;background:#FFF;border:2.5px solid var(--ink);border-radius:16px 16px 16px 4px;padding:9px 15px;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink);box-shadow:0 3px 0 rgba(31,22,16,0.18);animation:lpBubble .3s cubic-bezier(.34,1.56,.64,1) both;pointer-events:none;z-index:6}
+@keyframes lpBubble{0%{opacity:0;transform:scale(0.6) translateY(8px);transform-origin:bottom left}100%{opacity:1;transform:scale(1) translateY(0)}}
+@media(max-width:600px){.lp-bubble{left:50%;transform-origin:bottom center;border-radius:16px}}
+.lp-hero-fade{position:absolute;z-index:3;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--paper));pointer-events:none}
 
-html, body {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
+/* pill rain */
+.lp-rain{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.lp-pill-wrap{position:absolute;top:-70px;animation:lpFall linear infinite;pointer-events:auto;cursor:pointer;transition:opacity .3s;-webkit-tap-highlight-color:transparent}
+.lp-pill-wrap.popped{pointer-events:none}
+.lp-pill-wrap.popped .lp-pill-spin{animation-play-state:paused;opacity:0;transform:scale(1.6);transition:opacity .25s,transform .25s}
+@keyframes lpFall{0%{transform:translateY(-8vh) translateX(0)}25%{transform:translateY(24vh) translateX(var(--sway))}50%{transform:translateY(53vh) translateX(calc(var(--sway) * -0.6))}75%{transform:translateY(80vh) translateX(var(--sway))}100%{transform:translateY(112vh) translateX(0)}}
+.lp-pill-spin{animation:lpSpin linear infinite;transition:opacity .2s,transform .2s}
+@keyframes lpSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.lp-pop{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:26px;color:var(--honey);text-shadow:0 0 14px rgba(232,198,114,0.8);animation:lpPop .6s ease forwards}
+@keyframes lpPop{0%{opacity:1;transform:translate(-50%,-50%) scale(0.4) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(2) rotate(90deg)}}
 
-body {
-  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  background: linear-gradient(135deg, #FAF4ED 0%, #F5EBDC 50%, #EDE4D4 100%);
-}
+/* store buttons */
+.lp-stores{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.lp-store{display:inline-flex;align-items:center;gap:11px;border-radius:14px;padding:12px 24px;font-family:var(--sans);text-decoration:none}
+.lp-store span,.lp-store small{display:block;text-align:left;line-height:1.15}
+.lp-store small{font-size:10.5px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;opacity:0.75}
+.lp-store.dark{background:var(--ink);color:#FFF8E8;font-size:19px;font-weight:600;box-shadow:0 4px 0 rgba(31,22,16,0.25);transition:transform .15s,box-shadow .15s}
+.lp-store.dark:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(31,22,16,0.25);color:#FFF8E8}
+.lp-store.ghost{border:2px solid rgba(31,22,16,0.22);color:rgba(31,22,16,0.45);font-size:19px;font-weight:600}
 
-/* Main layout */
-.page {
-  height: 100vh;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(1.5rem, 4vw, 3rem);
-  text-align: center;
-  position: relative;
-}
+/* sections */
+section{position:relative;padding:110px 42px;max-width:1180px;margin:0 auto}
+.lp-how{text-align:center}
+.lp-how h2,.lp-shout h2,.lp-final h2{font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-0.5px}
+.lp-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:64px}
+.lp-step{display:flex;flex-direction:column;align-items:center;gap:8px}
+.lp-step-n{font-family:var(--serif);font-size:14px;font-style:italic;color:var(--accent);margin-top:22px}
+.lp-step h3{font-size:22px}
+.lp-step p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:4px 0 0;max-width:280px}
+.lp-phone{width:min(240px,100%);aspect-ratio:912/1942;border:3px solid var(--ink);border-radius:32px;overflow:hidden;background:#FFF;box-shadow:0 6px 0 rgba(31,22,16,0.15)}
+.lp-phone img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* Logo */
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-}
+/* never shouts */
+.lp-shout{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center;background:var(--paper-warm);max-width:none;padding:110px max(42px,calc((100vw - 1180px)/2))}
+.lp-body{font-size:16.5px;line-height:1.65;color:var(--ink-soft);margin:18px 0 24px;max-width:460px}
+.lp-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.lp-checks li{display:flex;align-items:baseline;gap:10px;font-size:14.5px;color:var(--ink)}
+.lp-checks li::before{content:"✓";color:var(--sage);font-weight:700;flex:0 0 auto}
+.lp-lock{background:linear-gradient(170deg,#2E2740,#1F1B2E);border:3px solid var(--ink);border-radius:34px;padding:44px 26px 100px;max-width:340px;margin:0 auto;box-shadow:0 8px 0 rgba(31,22,16,0.18)}
+.lp-lock-clock{font-size:56px;font-weight:600;color:#FFF;text-align:center;letter-spacing:-1px}
+.lp-lock-date{font-size:14px;color:rgba(255,255,255,0.65);text-align:center;margin-top:2px}
+.lp-notif{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,0.92);border-radius:18px;padding:12px 14px;margin-top:38px}
+.lp-notif-ico{flex:0 0 38px;height:38px;border-radius:9px;background:var(--paper);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.lp-notif b{display:block;font-size:12.5px}
+.lp-notif span{display:block;font-size:12.5px;color:#444;margin-top:1px}
 
-.logo-mark {
-  width: clamp(36px, 4vw, 48px);
-  height: auto;
-}
+/* final */
+.lp-final{text-align:center;overflow:hidden;max-width:none;background:linear-gradient(180deg,var(--paper),#FBF1DA)}
+.lp-final-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px}
+.lp-final h2{margin-top:6px}
+.lp-footer{display:flex;align-items:center;justify-content:space-between;padding:26px 42px;font-size:13px;color:rgba(31,22,16,0.5);border-top:1px solid rgba(31,22,16,0.1)}
+.lp-flinks{display:flex;gap:18px}
+.lp-flinks a{color:rgba(31,22,16,0.5);text-decoration:none}
+.lp-flinks a:hover{color:var(--accent)}
 
-.logo-word {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-}
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
 
-/* Character */
-.character-container {
-  position: relative;
-  width: clamp(180px, 30vh, 280px);
-  height: clamp(180px, 30vh, 280px);
-  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-}
+/* ── mascot ── */
+.pm{position:relative}
+.pm svg{display:block;overflow:visible;width:100%;height:100%}
+.pm .exp{display:none}
+.pm-idle .exp-idle{display:initial}
+.pm-wink .exp-wink{display:initial}
+.pm-excited .exp-excited{display:initial}
+.pm-blissful .exp-blissful{display:initial}
+@keyframes pmBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+.pm-bob{animation:pmBob 3.8s ease-in-out infinite;transform-origin:center}
+@keyframes pmSway{0%,100%{transform:rotate(0)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
+.pm-sway{animation:pmSway 5.2s ease-in-out infinite;transform-origin:center bottom}
+@keyframes pmBlinkOpen{0%,22%,28%,78%,84%,100%{opacity:1}24%,26%,80%,82%{opacity:0}}
+@keyframes pmBlinkClosed{0%,22%,28%,78%,84%,100%{opacity:0}24%,26%,80%,82%{opacity:1}}
+.pm-idle .pm-eyes-open{animation:pmBlinkOpen 5.5s ease-in-out infinite}
+.pm-idle .pm-eyes-closed{animation:pmBlinkClosed 5.5s ease-in-out infinite;opacity:0}
+@keyframes pmCheek{0%,100%{opacity:0.7}50%{opacity:0.9}}
+.pm-cheek{animation:pmCheek 4s ease-in-out infinite}
+@keyframes pmTie{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+.pm-tie{animation:pmTie 4.4s ease-in-out infinite;transform-origin:110px 152px}
+@keyframes pmWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-12deg)}}
+.pm-arm{animation:pmWave 1.6s ease-in-out infinite;transform-origin:176px 128px}
+.pm-still *{animation:none!important}
+.pm-pupil{transition:transform .1s linear}
 
-.hero-char-svg {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 16px 32px rgba(42, 31, 31, 0.1));
+@media(max-width:860px){
+.lp-steps{grid-template-columns:1fr}
+.lp-shout{grid-template-columns:1fr;gap:48px}
+section{padding:70px 24px}
+.lp-nav{padding:20px 24px}
 }
-
-/* Sparkles */
-.spark {
-  position: absolute;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  color: #D8A845;
-  animation: sparkle 3.6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.4; transform: scale(0.85) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.15) rotate(12deg); }
-}
-
-/* Background pills */
-.pills-bg {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.page {
-  z-index: 1;
-}
-
-.pill {
-  position: absolute;
-  opacity: 0.45;
-  filter: drop-shadow(0 6px 12px rgba(42, 31, 31, 0.08));
-  animation: pill-drift var(--drift, 7s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-}
-
-@keyframes pill-drift {
-  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
-  50% { transform: translateY(-14px) rotate(calc(var(--tilt, 0deg) + 5deg)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pill { animation: none; transform: rotate(var(--tilt, 0deg)); }
-}
-
-@media (max-width: 640px) {
-  .pill.hide-sm { display: none; }
-}
-
-/* Typography */
-h1 {
-  font-family: 'Fraunces', Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: clamp(0.75rem, 2vh, 1rem);
-}
-
-.tagline {
-  font-family: 'Fraunces', Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
-  color: var(--muted);
-  margin-bottom: clamp(2rem, 5vh, 3rem);
-}
-
-/* App store buttons */
-.store-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.store-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1.5rem;
-  background: var(--ink);
-  color: var(--cream);
-  border-radius: 12px;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.store-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(42, 31, 31, 0.2);
-}
-
-.store-btn svg {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-}
-
-.store-btn .label {
-  text-align: left;
-}
-
-.store-btn .label-small {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  opacity: 0.8;
-  line-height: 1;
-  margin-bottom: 2px;
-}
-
-.store-btn .label-large {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1;
-}
-
-.store-btn.coming-soon {
-  opacity: 0.45;
-  cursor: default;
-}
-
-.store-btn.coming-soon:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-/* Footer */
-.footer {
-  position: absolute;
-  bottom: clamp(1rem, 3vh, 2rem);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-align: center;
-}
-
-.footer a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.footer a:hover {
-  color: var(--red);
-}
-
-/* ============================================================
-   CHARACTER ANIMATIONS
-   ============================================================ */
-@keyframes char-bob {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.02); }
-}
-.char-bob { animation: char-bob 3.8s ease-in-out infinite; transform-origin: center; }
-
-@keyframes char-sway {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-1.5deg); }
-  75% { transform: rotate(1.5deg); }
-}
-.char-sway { animation: char-sway 5.2s ease-in-out infinite; transform-origin: center bottom; }
-
-@keyframes char-blink-open {
-  0%, 22%, 28%, 78%, 84%, 100% { opacity: 1; }
-  24%, 26%, 80%, 82% { opacity: 0; }
-}
-@keyframes char-blink-closed {
-  0%, 22%, 28%, 78%, 84%, 100% { opacity: 0; }
-  24%, 26%, 80%, 82% { opacity: 1; }
-}
-.eyes-open { animation: char-blink-open 5.5s ease-in-out infinite; }
-.eyes-closed { animation: char-blink-closed 5.5s ease-in-out infinite; opacity: 0; }
-
-@keyframes char-look {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-1.5px, 0.5px); }
-  40% { transform: translate(1.5px, 0.5px); }
-  60% { transform: translate(0, 1px); }
-  80% { transform: translate(-1px, -0.5px); }
-}
-.char-pupils { animation: char-look 8s ease-in-out infinite; }
-body.eye-tracking .char-pupils { animation: none; }
-
-@keyframes char-tie-sway {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-2deg); }
-  75% { transform: rotate(2deg); }
-}
-.char-tie { animation: char-tie-sway 4.4s ease-in-out infinite; transform-origin: 110px 152px; }
-
-@keyframes char-cheek {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.9; }
-}
-.char-cheek { animation: char-cheek 4s ease-in-out infinite; }
-
-/* Responsive */
-@media (max-height: 600px) {
-  .character-container {
-    width: 140px;
-    height: 140px;
-  }
-  h1 {
-    font-size: 1.75rem;
-  }
+@media(prefers-reduced-motion:reduce){
+.lp-pill-wrap,.lp-pill-spin{animation:none!important}
+.lp-rain{display:none}
+.pm-bob,.pm-sway,.pm-arm,.pm-tie{animation:none!important}
 }
 </style>
 </head>
 <body>
 
-<!-- CHARACTER SVG DEFS -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <radialGradient id="bodyHighlight" cx="40%" cy="30%">
-      <stop offset="0%" stop-color="#FFFEF8" stop-opacity="0.9"/>
-      <stop offset="50%" stop-color="#FFF8E8" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#FFF8E8" stop-opacity="0"/>
-    </radialGradient>
+<!-- ═══ HERO ═══ -->
+<header class="lp-hero" id="hero">
+  <div class="lp-rain" id="heroRain" aria-hidden="true"></div>
+  <nav class="lp-nav">
+    <span class="lp-wordmark">nooma<i></i></span>
+    <a class="lp-navbtn" href="https://apps.apple.com/gb/app/nooma-medication-reminder/id6773670366">download</a>
+  </nav>
+  <div class="lp-hero-inner">
+    <div class="lp-mascot" id="heroMascot" role="button" tabindex="0" aria-label="say hi to nooma">
+      <div class="pm pm-idle pm-bob" id="heroPm" style="width:210px;height:210px">
+        <div class="pm-sway">
+          <svg viewBox="0 0 220 220">
+            <defs>
+              <radialGradient id="pm-hl" cx="40%" cy="30%">
+                <stop offset="0%" stop-color="#FFFEF8" stop-opacity="0.9"/>
+                <stop offset="50%" stop-color="#FFF8E8" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#FFF8E8" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000" opacity="0.16"/>
+            <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158 Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170 Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168 Q 60 178 50 170 Q 38 168 38 158 Z" fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154 Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165 Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165 Q 61 173 53 165 Q 43 164 43 154 Z" fill="#FFF8E8"/>
+            <ellipse cx="110" cy="92" rx="56" ry="34" fill="url(#pm-hl)"/>
+            <ellipse cx="78" cy="74" rx="18" ry="11" fill="#FFFFFF" opacity="0.55" transform="rotate(-25 78 74)"/>
+            <ellipse cx="90" cy="68" rx="8" ry="5" fill="#FFFFFF" opacity="0.7" transform="rotate(-25 90 68)"/>
+            <ellipse class="pm-cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+            <ellipse class="pm-cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+            <circle cx="68" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+            <circle cx="74" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+            <circle cx="80" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+            <circle cx="140" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
+            <circle cx="146" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
+            <circle cx="152" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
 
-    <symbol id="character" viewBox="0 0 220 220">
-      <g class="char-bob">
-        <g class="char-sway">
-          <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000000" opacity="0.15"/>
-          <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158
-                   Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170
-                   Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168
-                   Q 60 178 50 170 Q 38 168 38 158 Z"
-                fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
-          <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154
-                   Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165
-                   Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165
-                   Q 61 173 53 165 Q 43 164 43 154 Z"
-                fill="#FFF8E8"/>
-          <ellipse cx="110" cy="92" rx="56" ry="34" fill="url(#bodyHighlight)"/>
-          <ellipse cx="78" cy="74" rx="18" ry="11" fill="#FFFFFF" opacity="0.55" transform="rotate(-25 78 74)"/>
-          <ellipse cx="90" cy="68" rx="8" ry="5" fill="#FFFFFF" opacity="0.7" transform="rotate(-25 90 68)"/>
-          <ellipse class="char-cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
-          <ellipse class="char-cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
-          <circle cx="68" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
-          <circle cx="74" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
-          <circle cx="80" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
-          <circle cx="140" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
-          <circle cx="146" cy="116" r="1.2" fill="#D89890" opacity="0.7"/>
-          <circle cx="152" cy="114" r="1.4" fill="#D89890" opacity="0.7"/>
-          <g class="char-pupils">
-            <g class="eyes-open">
-              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
-              <g class="char-pupil-wrap" data-eye="left">
-                <circle cx="80" cy="100" r="5" fill="#1F1610"/>
-                <path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- eyes: idle -->
+            <g class="exp exp-idle">
+              <g class="pm-eyes-open">
+                <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+                <g class="pm-pupil"><circle cx="80" cy="100" r="5" fill="#1F1610"/><path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+                <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+                <g class="pm-pupil"><circle cx="140" cy="100" r="5" fill="#1F1610"/><path d="M 138 96 Q 141 94 144 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
               </g>
-              <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
-              <g class="char-pupil-wrap" data-eye="right">
-                <circle cx="140" cy="100" r="5" fill="#1F1610"/>
-                <path d="M 138 96 Q 141 94 144 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <g class="pm-eyes-closed">
+                <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
               </g>
+              <path d="M 102 138 Q 110 143 118 138" stroke="#1F1610" stroke-width="2.8" stroke-linecap="round" fill="none"/>
             </g>
-            <g class="eyes-closed">
+
+            <!-- eyes: wink -->
+            <g class="exp exp-wink">
+              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="pm-pupil"><circle cx="80" cy="100" r="5" fill="#1F1610"/><path d="M 78 96 Q 81 94 84 96" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+              <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M 98 136 Q 110 147 122 134" stroke="#1F1610" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </g>
+
+            <!-- eyes: excited -->
+            <g class="exp exp-excited">
+              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="pm-pupil"><circle cx="80" cy="99" r="5" fill="#1F1610"/><path d="M 78 95 Q 81 93 84 95" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+              <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <g class="pm-pupil"><circle cx="140" cy="99" r="5" fill="#1F1610"/><path d="M 138 95 Q 141 93 144 95" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+              <g fill="#E8C672" stroke="#1F1610" stroke-width="0.8">
+                <path d="M 54 78 L 56 83 L 61 85 L 56 87 L 54 92 L 52 87 L 47 85 L 52 83 Z"/>
+                <path d="M 166 72 L 167.5 76 L 171.5 77.5 L 167.5 79 L 166 83 L 164.5 79 L 160.5 77.5 L 164.5 76 Z"/>
+              </g>
+              <path d="M 96 132 Q 110 130 124 132 Q 122 152 110 152 Q 98 152 96 132 Z" fill="#5A2B24" stroke="#1F1610" stroke-width="2.4" stroke-linejoin="round"/>
+              <ellipse cx="110" cy="149" rx="7" ry="4" fill="#F08B8B"/>
+            </g>
+
+            <!-- eyes: blissful -->
+            <g class="exp exp-blissful">
               <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
               <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M 96 136 Q 110 150 124 136 Q 117 144 110 144 Q 103 144 96 136 Z" fill="#1F1610" stroke="#1F1610" stroke-width="1.4" stroke-linejoin="round"/>
+            </g>
+
+            <g class="pm-tie">
+              <path d="M 103 148 L 117 148 L 115 158 L 105 158 Z" fill="#A8362E" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M 105 150 L 113 150" stroke="#FFFFFF" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+              <path d="M 105 158 L 115 158 L 120 178 L 110 188 L 100 178 Z" fill="#C9453B" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
+              <g opacity="0.45">
+                <line x1="104" y1="164" x2="116" y2="161" stroke="#1F1610" stroke-width="1"/>
+                <line x1="105" y1="170" x2="118" y2="167" stroke="#1F1610" stroke-width="1"/>
+                <line x1="107" y1="176" x2="118" y2="173" stroke="#1F1610" stroke-width="1"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <h1>never forget<br>your meds again.</h1>
+    <p class="lp-tagline">a little friend for your meds.</p>
+    <div class="lp-stores">
+      <a class="lp-store dark" href="https://apps.apple.com/gb/app/nooma-medication-reminder/id6773670366">
+        <svg width="20" height="24" viewBox="0 0 20 24" fill="currentColor"><path d="M16.5 12.7c0-3 2.5-4.5 2.6-4.6-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-1 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.1 1.5 12.1 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 4-1s2.4 1 4 1c1.7 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.4 1.7-3.5-.1 0-3.2-1.2-3.3-4.7zM13.4 3.6c.8-1 1.4-2.4 1.2-3.6-1.2 0-2.7.8-3.5 1.8-.8.9-1.5 2.3-1.3 3.6 1.4.1 2.8-.7 3.6-1.8z" transform="scale(0.85)"/></svg>
+        <span><small>download on the</small>App Store</span>
+      </a>
+      <span class="lp-store ghost"><small>coming soon to</small>Google Play</span>
+    </div>
+    <p class="lp-hint">the pills are for popping. the ghost is for poking.</p>
+  </div>
+  <div class="lp-hero-fade"></div>
+</header>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="lp-how">
+  <p class="lp-kicker">how it works</p>
+  <h2>three little things.<br><em>that&rsquo;s all it ever is.</em></h2>
+  <div class="lp-steps">
+    <div class="lp-step reveal">
+      <div class="lp-phone"><img src="assets/ss-day-meds.png" alt="today's medications in the nooma app" loading="lazy"></div>
+      <span class="lp-step-n">01</span>
+      <h3>she reminds you</h3>
+      <p>a soft nudge when it&rsquo;s time. never loud, never pushy, never a guilt trip.</p>
+    </div>
+    <div class="lp-step reveal">
+      <div class="lp-phone"><img src="assets/ss-day-idle.png" alt="nooma's home screen with the ghost companion" loading="lazy"></div>
+      <span class="lp-step-n">02</span>
+      <h3>you tap once</h3>
+      <p>one tap marks it taken. that&rsquo;s the whole job &mdash; no streaks to keep, no scores to lose.</p>
+    </div>
+    <div class="lp-step reveal">
+      <div class="lp-phone"><img src="assets/ss-day-gift.png" alt="the ghost bringing back a gift from an adventure" loading="lazy"></div>
+      <span class="lp-step-n">03</span>
+      <h3>she goes adventuring</h3>
+      <p>every dose sends her off exploring, and she comes home with little treasures for her world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEVER SHOUTS ═══ -->
+<section class="lp-shout">
+  <div class="reveal">
+    <p class="lp-kicker">the anti-alarm</p>
+    <h2>she never shouts.<br><em>she never keeps score.</em></h2>
+    <p class="lp-body">alarms nag. streaks shame. nooma just says a soft hello &mdash; and if you miss a day, she&rsquo;s simply glad to see you tomorrow.</p>
+    <ul class="lp-checks">
+      <li>your lock screen never shows medication names</li>
+      <li>your data is encrypted, in transit and at rest</li>
+      <li>no feed, no followers, no one watching</li>
+    </ul>
+  </div>
+  <div class="reveal">
+    <div class="lp-lock">
+      <div class="lp-lock-clock">9:41</div>
+      <div class="lp-lock-date">tuesday, april 21</div>
+      <div class="lp-notif">
+        <div class="lp-notif-ico">
+          <div class="pm pm-idle pm-still" style="width:34px;height:34px">
+            <svg viewBox="0 0 220 220">
+              <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158 Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170 Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168 Q 60 178 50 170 Q 38 168 38 158 Z" fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154 Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165 Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165 Q 61 173 53 165 Q 43 164 43 154 Z" fill="#FFF8E8"/>
+              <ellipse cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+              <ellipse cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+              <circle cx="80" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <circle cx="80" cy="100.5" r="5" fill="#1F1610"/>
+              <circle cx="140" cy="100" r="11" fill="#FFFFFF" stroke="#1F1610" stroke-width="2.8"/>
+              <circle cx="140" cy="100.5" r="5" fill="#1F1610"/>
+              <path d="M 102 138 Q 110 143 118 138" stroke="#1F1610" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div><b>nooma · now</b><span>a soft hello &mdash; whenever you&rsquo;re ready.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="lp-final">
+  <div class="lp-rain" id="finalRain" aria-hidden="true"></div>
+  <div class="lp-final-inner reveal">
+    <div class="pm pm-bob" style="width:170px;height:170px">
+      <div class="pm-sway">
+        <svg viewBox="0 0 220 220">
+          <ellipse cx="110" cy="200" rx="50" ry="6" fill="#000" opacity="0.16"/>
+          <path d="M 38 88 Q 38 38 110 38 Q 182 38 182 88 L 182 158 Q 182 168 170 170 Q 160 178 152 168 Q 144 180 134 170 Q 124 180 110 170 Q 96 180 86 170 Q 76 180 68 168 Q 60 178 50 170 Q 38 168 38 158 Z" fill="#E8DCB8" stroke="#1F1610" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M 43 82 Q 43 44 110 44 Q 177 44 177 82 L 177 154 Q 177 164 167 165 Q 159 173 152 165 Q 144 175 134 165 Q 124 175 110 165 Q 96 175 86 165 Q 76 175 68 165 Q 61 173 53 165 Q 43 164 43 154 Z" fill="#FFF8E8"/>
+          <g class="pm-arm">
+            <path d="M 176 128 Q 198 114 202 92" stroke="#1F1610" stroke-width="15" stroke-linecap="round" fill="none"/>
+            <path d="M 176 128 Q 198 114 202 92" stroke="#FFF8E8" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <g stroke="#1F1610" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.6">
+              <path d="M 212 84 Q 218 90 219 98"/>
+              <path d="M 218 76 Q 226 84 228 94"/>
             </g>
           </g>
-          <path d="M 102 138 Q 110 143 118 138" stroke="#1F1610" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-          <g class="char-tie">
+          <ellipse class="pm-cheek" cx="74" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+          <ellipse class="pm-cheek" cx="146" cy="120" rx="14" ry="7" fill="#FFB5B0"/>
+          <path d="M 71 102 Q 80 106 89 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <path d="M 131 102 Q 140 106 149 102" stroke="#1F1610" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <path d="M 96 136 Q 110 150 124 136 Q 117 144 110 144 Q 103 144 96 136 Z" fill="#1F1610" stroke="#1F1610" stroke-width="1.4" stroke-linejoin="round"/>
+          <g class="pm-tie">
             <path d="M 103 148 L 117 148 L 115 158 L 105 158 Z" fill="#A8362E" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M 105 150 L 113 150" stroke="#FFFFFF" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
             <path d="M 105 158 L 115 158 L 120 178 L 110 188 L 100 178 Z" fill="#C9453B" stroke="#1F1610" stroke-width="2" stroke-linejoin="round"/>
-            <g opacity="0.45">
-              <line x1="104" y1="164" x2="116" y2="161" stroke="#1F1610" stroke-width="1"/>
-              <line x1="105" y1="170" x2="118" y2="167" stroke="#1F1610" stroke-width="1"/>
-              <line x1="107" y1="176" x2="118" y2="173" stroke="#1F1610" stroke-width="1"/>
-            </g>
           </g>
-        </g>
-      </g>
-    </symbol>
-
-    <symbol id="pillCapsulePink" viewBox="0 0 64 30">
-      <rect x="3" y="3" width="58" height="24" rx="12" fill="#FFF8E8"/>
-      <path d="M 32 3 L 15 3 A 12 12 0 0 0 15 27 L 32 27 Z" fill="#FFB5B0"/>
-      <rect x="3" y="3" width="58" height="24" rx="12" fill="none" stroke="#1F1610" stroke-width="3" stroke-linejoin="round"/>
-      <line x1="32" y1="3" x2="32" y2="27" stroke="#1F1610" stroke-width="3"/>
-      <ellipse cx="46" cy="10" rx="7" ry="3" fill="#FFFFFF" opacity="0.6" transform="rotate(-8 46 10)"/>
-    </symbol>
-
-    <symbol id="pillCapsuleButter" viewBox="0 0 64 30">
-      <rect x="3" y="3" width="58" height="24" rx="12" fill="#FFF8E8"/>
-      <path d="M 32 3 L 15 3 A 12 12 0 0 0 15 27 L 32 27 Z" fill="#E8DCB8"/>
-      <rect x="3" y="3" width="58" height="24" rx="12" fill="none" stroke="#1F1610" stroke-width="3" stroke-linejoin="round"/>
-      <line x1="32" y1="3" x2="32" y2="27" stroke="#1F1610" stroke-width="3"/>
-      <ellipse cx="46" cy="10" rx="7" ry="3" fill="#FFFFFF" opacity="0.6" transform="rotate(-8 46 10)"/>
-    </symbol>
-
-    <symbol id="pillRound" viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="13" fill="#FFF8E8" stroke="#1F1610" stroke-width="3"/>
-      <line x1="7" y1="16" x2="25" y2="16" stroke="#1F1610" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
-      <ellipse cx="11" cy="10" rx="4" ry="2.5" fill="#FFFFFF" opacity="0.7" transform="rotate(-25 11 10)"/>
-    </symbol>
-
-    <symbol id="logoMark" viewBox="0 0 32 32">
-      <path d="M 16 4 C 8 4, 4 10, 4 18 L 4 26 C 4 26, 7 30, 10 26 C 10 26, 13 30, 16 26 C 16 26, 19 30, 22 26 C 22 26, 25 30, 28 26 L 28 18 C 28 10, 24 4, 16 4 Z"
-            fill="#FFF8E8" stroke="#1F1610" stroke-width="1.6" stroke-linejoin="round"/>
-      <ellipse cx="11" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
-      <ellipse cx="21" cy="16" rx="1.6" ry="2" fill="#1F1610"/>
-      <ellipse cx="9" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
-      <ellipse cx="23" cy="20" rx="2" ry="1.4" fill="#FFB5B0"/>
-      <path d="M 14 22 Q 16 24, 18 22" stroke="#1F1610" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-    </symbol>
-  </defs>
-</svg>
-
-
-<div class="pills-bg" aria-hidden="true">
-  <svg class="pill" style="top: 9%; left: 7%; width: 58px; --tilt: -22deg; --drift: 7.5s;" viewBox="0 0 64 30"><use href="#pillCapsulePink"/></svg>
-  <svg class="pill" style="top: 14%; right: 9%; width: 40px; --tilt: 14deg; --drift: 6.5s; --delay: 1.1s;" viewBox="0 0 32 32"><use href="#pillRound"/></svg>
-  <svg class="pill hide-sm" style="top: 40%; left: 4%; width: 34px; --tilt: 9deg; --drift: 8s; --delay: 2.3s;" viewBox="0 0 32 32"><use href="#pillRound"/></svg>
-  <svg class="pill hide-sm" style="top: 44%; right: 5%; width: 62px; --tilt: 24deg; --drift: 7s; --delay: 0.6s;" viewBox="0 0 64 30"><use href="#pillCapsuleButter"/></svg>
-  <svg class="pill" style="bottom: 18%; left: 9%; width: 48px; --tilt: 12deg; --drift: 6.8s; --delay: 1.8s;" viewBox="0 0 64 30"><use href="#pillCapsuleButter"/></svg>
-  <svg class="pill" style="bottom: 24%; right: 8%; width: 36px; --tilt: -16deg; --drift: 7.8s; --delay: 3s;" viewBox="0 0 32 32"><use href="#pillRound"/></svg>
-  <svg class="pill hide-sm" style="bottom: 8%; right: 17%; width: 52px; --tilt: -8deg; --drift: 7.2s; --delay: 2s;" viewBox="0 0 64 30"><use href="#pillCapsulePink"/></svg>
-  <svg class="pill hide-sm" style="top: 7%; left: 31%; width: 24px; --tilt: 20deg; --drift: 6s; --delay: 1.4s;" viewBox="0 0 32 32"><use href="#pillRound"/></svg>
-</div>
-
-<div class="page">
-  <a href="/" class="logo">
-    <svg class="logo-mark" viewBox="0 0 32 32"><use href="#logoMark"/></svg>
-    <span class="logo-word">nooma</span>
-  </a>
-
-  <div class="character-container">
-    <span class="spark" style="top: 0; left: 5%; font-size: 20px;">✦</span>
-    <span class="spark" style="top: 15%; right: 0; font-size: 16px; animation-delay: 1.2s;">✦</span>
-    <span class="spark" style="bottom: 20%; left: 0; font-size: 18px; animation-delay: 2.4s;">✦</span>
-    <span class="spark" style="bottom: 10%; right: 5%; font-size: 14px; animation-delay: 0.6s;">✦</span>
-
-    <svg viewBox="0 0 220 220" class="hero-char-svg" aria-label="Nooma's tiny companion">
-      <use href="#character"/>
-    </svg>
+        </svg>
+      </div>
+    </div>
+    <h2>she&rsquo;s waiting to meet you.</h2>
+    <div class="lp-stores">
+      <a class="lp-store dark" href="https://apps.apple.com/gb/app/nooma-medication-reminder/id6773670366">
+        <svg width="20" height="24" viewBox="0 0 20 24" fill="currentColor"><path d="M16.5 12.7c0-3 2.5-4.5 2.6-4.6-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-1 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.1 1.5 12.1 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 4-1s2.4 1 4 1c1.7 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.4 1.7-3.5-.1 0-3.2-1.2-3.3-4.7zM13.4 3.6c.8-1 1.4-2.4 1.2-3.6-1.2 0-2.7.8-3.5 1.8-.8.9-1.5 2.3-1.3 3.6 1.4.1 2.8-.7 3.6-1.8z" transform="scale(0.85)"/></svg>
+        <span><small>download on the</small>App Store</span>
+      </a>
+      <span class="lp-store ghost"><small>coming soon to</small>Google Play</span>
+    </div>
   </div>
+</section>
 
-  <h1>never forget your meds again.</h1>
-  <p class="tagline">a little friend for your meds.</p>
+<footer class="lp-footer">
+  <span>© 2026 nooma</span>
+  <span class="lp-flinks"><a href="/about.html">about</a><a href="/support.html">support</a><a href="/privacy.html">privacy</a><a href="/terms.html">terms</a></span>
+</footer>
 
-  <div class="store-buttons">
-    <a href="https://apps.apple.com/gb/app/nooma-medication-reminder/id6773670366" class="store-btn" aria-label="Download on the App Store">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-      </svg>
-      <span class="label">
-        <span class="label-small">Download on the</span>
-        <span class="label-large">App Store</span>
-      </span>
-    </a>
-    <span class="store-btn coming-soon" aria-label="Google Play — coming soon">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.69.59 1.19s-.22.9-.57 1.18l-2.29 1.32-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/>
-      </svg>
-      <span class="label">
-        <span class="label-small">Coming soon to</span>
-        <span class="label-large">Google Play</span>
-      </span>
-    </span>
-  </div>
-
-  <footer class="footer">
-    © 2026 Nooma · <a href="/about.html">About</a> · <a href="/support.html">Support</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a>
-  </footer>
-</div>
-
-
-<!-- EYE TRACKING -->
 <script>
-(function() {
-  document.body.classList.add('eye-tracking');
+(function(){
+  function rand(a,b){return a+Math.random()*(b-a);}
+  var HUES=[['#F5B0BD','#FBE3E8'],['#8EC9E8','#DDF0FB'],['#E8C672','#FAEBC8'],['#A8C98A','#E4F0D6'],['#E89A8A','#F9E0D9'],['#C9B8E8','#EDE6F9']];
 
-  var heroChar = document.querySelector('.hero-char-svg');
-  var pupilWraps = heroChar ? heroChar.querySelectorAll('.char-pupil-wrap') : [];
-  var eyeCenters = { left: { cx: 80, cy: 100 }, right: { cx: 140, cy: 100 } };
-  var MAX_OFFSET = 4;
-
-  function updateEyes(e) {
-    if (!heroChar) return;
-    var rect = heroChar.getBoundingClientRect();
-    var ptX = ((e.clientX - rect.left) / rect.width) * 220;
-    var ptY = ((e.clientY - rect.top) / rect.height) * 220;
-
-    pupilWraps.forEach(function(wrap) {
-      var center = eyeCenters[wrap.getAttribute('data-eye')];
-      var dx = ptX - center.cx;
-      var dy = ptY - center.cy;
-      var dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist > MAX_OFFSET) {
-        dx = (dx / dist) * MAX_OFFSET;
-        dy = (dy / dist) * MAX_OFFSET;
-      }
-      wrap.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
-    });
+  /* ── pill rain ── */
+  function pillSVG(kind,c1,c2,scale){
+    if(kind==='capsule'){
+      return '<svg width="'+(54*scale)+'" height="'+(26*scale)+'" viewBox="0 0 54 26">'+
+        '<rect x="2" y="2" width="50" height="22" rx="11" fill="'+c2+'" stroke="#1F1610" stroke-width="2.5"/>'+
+        '<path d="M13 2 h14 v22 h-14 a11 11 0 0 1 0-22 z" fill="'+c1+'" stroke="#1F1610" stroke-width="2.5" stroke-linejoin="round"/>'+
+        '<ellipse cx="14" cy="9" rx="5" ry="2.6" fill="#FFF" opacity="0.7" transform="rotate(-18 14 9)"/></svg>';
+    }
+    return '<svg width="'+(30*scale)+'" height="'+(30*scale)+'" viewBox="0 0 30 30">'+
+      '<circle cx="15" cy="15" r="12.5" fill="'+c1+'" stroke="#1F1610" stroke-width="2.5"/>'+
+      '<line x1="6" y1="15" x2="24" y2="15" stroke="#1F1610" stroke-width="2" opacity="0.5"/>'+
+      '<ellipse cx="10.5" cy="9" rx="4" ry="2.2" fill="#FFF" opacity="0.7" transform="rotate(-25 10.5 9)"/></svg>';
+  }
+  function makeRain(container,count,onPop){
+    for(var i=0;i<count;i++){
+      var back=Math.random()>0.55;
+      var hue=HUES[Math.floor(Math.random()*HUES.length)];
+      var scale=rand(0.7,1.35);
+      var wrap=document.createElement('div');
+      wrap.className='lp-pill-wrap';
+      wrap.style.left=rand(1,95)+'%';
+      wrap.style.animationDuration=rand(14,26)+'s';
+      wrap.style.animationDelay=rand(-26,0)+'s';
+      wrap.style.setProperty('--sway',rand(-40,40)+'px');
+      wrap.style.zIndex=back?0:1;
+      wrap.style.filter=back?'blur(2.5px)':'none';
+      wrap.style.opacity=back?0.4:0.9;
+      var spin=document.createElement('div');
+      spin.className='lp-pill-spin';
+      spin.style.animationDuration=rand(9,18)+'s';
+      spin.style.animationDirection=Math.random()>0.5?'reverse':'normal';
+      spin.innerHTML=pillSVG(Math.random()>0.42?'capsule':'tablet',hue[0],hue[1],scale);
+      wrap.appendChild(spin);
+      wrap.addEventListener('pointerdown',function(e){
+        var w=e.currentTarget;
+        if(w.classList.contains('popped'))return;
+        w.classList.add('popped');
+        var pop=document.createElement('div');
+        pop.className='lp-pop';
+        pop.textContent='✦';
+        w.appendChild(pop);
+        if(onPop)onPop();
+      });
+      container.appendChild(wrap);
+    }
   }
 
-  window.addEventListener('mousemove', updateEyes);
+  /* ── mascot ── */
+  var mascot=document.getElementById('heroMascot');
+  var pm=document.getElementById('heroPm');
+  var hero=document.getElementById('hero');
+  var pupils=pm.querySelectorAll('.pm-pupil');
+  var speaking=false;
+
+  function setLook(x,y){
+    var px=x*3.4,py=y*2.4;
+    pupils.forEach(function(p){p.style.transform='translate('+px+'px,'+py+'px)';});
+  }
+  setLook(0,0.25);
+
+  hero.addEventListener('pointermove',function(e){
+    if(speaking)return;
+    var r=hero.getBoundingClientRect();
+    var x=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2)));
+    var y=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height*0.42))/(r.height/2)));
+    setLook(x,y);
+  });
+
+  function boing(){
+    mascot.classList.remove('boing');
+    void mascot.offsetWidth;
+    mascot.classList.add('boing');
+  }
+
+  var LINES=[
+    {t:'hi. i’m nooma.',b:'excited'},
+    {t:'i’ll never shout, promise.',b:'wink'},
+    {t:'took your meds today?',b:'idle'},
+    {t:'eep! that tickles.',b:'excited'},
+    {t:'i keep secrets very well.',b:'wink'},
+    {t:'one tap. that’s the whole job.',b:'idle'},
+    {t:'i’d love to live in your pocket.',b:'blissful'},
+    {t:'missed a day? still friends.',b:'blissful'},
+  ];
+  var lineIdx=Math.floor(Math.random()*LINES.length);
+  var speechTimer=null,bubbleEl=null;
+
+  function setBehavior(b){
+    pm.classList.remove('pm-idle','pm-wink','pm-excited','pm-blissful');
+    pm.classList.add('pm-'+b);
+  }
+  function talk(){
+    var line=LINES[lineIdx%LINES.length];
+    lineIdx++;
+    speaking=true;
+    setBehavior(line.b);
+    setLook(0,0.15);
+    boing();
+    if(bubbleEl)bubbleEl.remove();
+    bubbleEl=document.createElement('div');
+    bubbleEl.className='lp-bubble';
+    bubbleEl.textContent=line.t;
+    mascot.appendChild(bubbleEl);
+    clearTimeout(speechTimer);
+    speechTimer=setTimeout(function(){
+      speaking=false;
+      setBehavior('idle');
+      if(bubbleEl){bubbleEl.remove();bubbleEl=null;}
+    },2600);
+  }
+  mascot.addEventListener('pointerdown',talk);
+  mascot.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();talk();}});
+
+  makeRain(document.getElementById('heroRain'),18,boing);
+  makeRain(document.getElementById('finalRain'),10,null);
+
+  /* ── scroll reveal ── */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:0.18});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 })();
 </script>
 
